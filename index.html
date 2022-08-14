@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Snakemake—simple data processing for researchers</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link rel="stylesheet" href="lib/highlightjs/styles/github.min.css" type="text/css"/>
+	<link rel="stylesheet" href="lib/katex/katex.min.css" type="text/css"/>
+	<link rel="stylesheet" href="styles/styles.css">
+    <style>
+        /* Customize the theme */
+
+		.shower {
+			--slide-ratio: calc(16 / 9);
+			--color-key: #008aa5;
+			--slide-notes-max-width: 80ch;
+		}
+
+
+		/* Explicit notes control labels */
+
+		.control {
+			--radius: 0.75em;
+			--line-height: 1.5em;
+		}
+
+		.control input[type='checkbox'] + label::after {
+			text-align: center;
+			content: "N";
+			color: var(--color-off);
+		}
+
+		.control input[type='checkbox']:checked + label::after {
+			content: "Y";
+			color: var(--color-on);
+		}
+    </style>
+</head>
+<body class="shower list show-notes">
+
+	<header class="caption">
+		<h1>Snakemake—simple data processing for researchers</h1>
+		<p><a href="https://blog.liang2.tw/">Liang-Bo Wang</a>, 2022-09-xx.</p>
+	</header>
+
+	<menu class="control">
+		<li class="show-notes">
+			<input type="checkbox" id="show-notes-toggle" checked>
+			<label for="show-notes-toggle">Slide notes</label>
+		</li>
+	</menu>
+
+	<!-- Cover Slide -->
+	<section id="cover" class="slide clear black">
+		<h2 id="talk-header">Snakemake—simple data processing for researchers</h2>
+		<p id="talk-info">
+			Liang-Bo Wang<br>
+			Taipei Bioinformatics Omnibus<br>
+			2022-09-xx
+		</p>
+		<p id="talk-license">
+			<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+				<img
+					alt="Creative Commons Attribution 4.0 International License"
+					src="pictures/cc-by-4.0.svg"
+					/>
+			</a>
+		</p>
+		<p id="usage-instr">
+			<kbd>Esc</kbd> to exit<br>
+			<kbd>←</kbd> <kbd>→</kbd> to navigate
+		</p>
+		<img src="pictures/cover.jpg" class="cover w" alt="">
+		<style>
+			#talk-header, #talk-info {
+				left: var(--slide-left-side);
+				right: var(--slide-right-side);
+				text-align: center;
+				position: absolute;
+				color: #FFFFFF;
+			}
+			#talk-header {
+				font-size: 3rem;
+				line-height: 1.25;
+				top: 12rem;
+			}
+			#talk-info {
+				font-size: 1.5rem;
+				line-height: 1.5;
+				/* top: 26rem; */
+				bottom: 4rem;
+			}
+			#talk-license, #usage-instr {
+				color: #FFFFFF;
+				font-size: 1.5rem;
+				line-height: 1.75;
+				bottom: 1rem;
+				position: absolute;
+			}
+			#talk-license {
+				left: var(--slide-left-side);
+			}
+			#talk-license a[rel="license"] {
+				background-image: none;
+			}
+			#talk-license a[rel="license"] img {
+				height: 1em;
+			}
+			#usage-instr {
+				text-align: right;
+				right: var(--slide-right-side);
+			}
+			#usage-instr kbd {
+				color: var(--color-key);
+				background-color: var(--color-light);
+			}
+		</style>
+	</section>
+
+	<section class="slide tight">
+		<pre class="language-python">
+<code>from django_q.humanhash import humanize
+def order(request):
+    fruit = request.POST.get('fruit_type', '')
+    num_fruit = int(request.POST.get('num_fruit', '1'))
+    task_id = <mark>async(...)</mark>  # Create async task
+    messages.info(  # Django message as notification
+        request,
+        'You ordered {fruit:s} x {num_fruit:d} (task: {task})'
+        .format(..., task=<mark>humanize(task_id)</mark>)
+    )</code>
+		</pre>
+	</section>
+
+	<section class="slide-notes">
+	</section>
+
+	<div class="progress"></div>
+
+	<script src="lib/shower/shower.js"></script>
+	<script defer src="lib/highlightjs/highlight.min.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			// Display or hide the slide notes
+			const body = document.querySelector('body');
+			const notesToggle = document.querySelector('.control .show-notes input');
+			notesToggle.checked ? body.classList.add('show-notes') : body.classList.remove('show-notes');
+			notesToggle.addEventListener('click', (event) => {
+				body.classList.toggle('show-notes');
+			});
+
+			// Load Highlight.js
+			hljs.highlightAll();
+		});
+	</script>
+</body>
+</html>

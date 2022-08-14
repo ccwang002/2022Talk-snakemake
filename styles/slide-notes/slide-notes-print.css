@@ -1,0 +1,16 @@
+/* Print */
+
+
+section.slide-notes {
+    /* stylelint-disable declaration-no-important */
+    margin: 1rem 3rem !important;
+    padding: 1rem 3rem !important;
+
+    /* stylelint-enable */
+    width: calc(var(--slide-width) - 3rem * 2);
+    max-width: unset;
+    height: calc(100% - 2rem * 2);
+
+    font-size: 1.25rem;
+    page-break-after: always;
+}

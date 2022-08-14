@@ -1,0 +1,19 @@
+/* Highlight.js */
+
+.hljs {
+    background: none;
+
+    /* tab equals to be 4 spaces */
+    tab-size: 4;
+}
+
+.slide-notes pre code.hljs {
+    padding: 0 1em;
+}
+
+/* Fira Code doesn't have italic variant */
+
+.hljs-emphasis {
+    font-style: normal;
+    font-weight: 500;
+}

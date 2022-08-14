@@ -1,0 +1,112 @@
+/* Slides control (slide notes toggle) */
+
+.control {
+    --color-off: var(--color-dark);
+    --color-on: var(--color-back);
+    --radius: 0.5em;
+    --width: calc(1.5em + var(--radius) * 2);
+    --line-height: 1em;
+
+    grid-row: 1/2;
+    grid-column: -2/-1;
+    align-self: end;
+    justify-self: start;
+    position: absolute;
+    width: 100%;
+    max-width: var(--slide-notes-max-width);
+
+    color: var(--color-on);
+    line-height: var(--line-height);
+    padding-left: 0;
+
+    /* Remove the menu marker */
+    list-style: none;
+}
+
+.full .control {
+    display: none;
+}
+
+/* Responsive */
+
+.control {
+    --border: 2px;
+    font-size: 0.75rem;
+    margin: 0.5rem 0;
+}
+
+@media (min-width: 768px) {
+    .control {
+        --border: 3px;
+        font-size: 1rem;
+        margin:
+            calc(var(--slide-scale) * 96px)
+            0;
+    }
+}
+
+@media (min-width: 2336px) {
+    .control {
+        font-size: 2rem;
+    }
+}
+
+
+/* Elements  */
+
+.control li {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
+.control input[type='checkbox'] {
+    visibility: collapse;
+    padding: 0;
+    margin: 0;
+}
+
+.control label {
+    position: relative;
+    padding-right: calc(var(--width) + 1em);
+}
+
+.control input[type='checkbox'] + label::before,
+.control input[type='checkbox'] + label::after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    transition-property: background-color, border-color, right;
+    transition-duration: 0.3s;
+}
+
+.control input[type='checkbox'] + label::before {
+    height: calc(var(--radius) * 2);
+    width: var(--width);
+    top: calc(var(--radius) * 2 - var(--border) - var(--line-height));
+
+    /* right: calc(var(--radius)); */
+    right: 0;
+    border: var(--border) solid var(--color-off);
+    border-radius: calc(var(--radius) + var(--border));
+    background: var(--color-off);
+}
+
+.control input[type='checkbox'] + label::after {
+    height: calc(var(--radius) * 2);
+    width: calc(var(--radius) * 2);
+    top: calc(var(--radius) * 2 - var(--line-height));
+    right: calc(var(--width) - var(--radius) *2 + var(--border));
+    border-radius: var(--radius);
+    background: var(--color-on);
+}
+
+input[type='checkbox']:checked + label::before {
+    border-color: var(--color-on);
+    background: var(--color-on);
+}
+
+input[type='checkbox']:checked + label::after {
+    right: calc(var(--border));
+    background: var(--color-key);
+}

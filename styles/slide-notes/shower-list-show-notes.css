@@ -1,0 +1,36 @@
+/* Shower List with Slide Notes */
+
+.shower.list.show-notes {
+    /* In small viewports, use single column */
+    grid-template-columns:
+        calc(
+            100vw
+            - var(--slide-gap) * var(--slide-scale) * 2.5
+            - env(safe-area-inset-left)
+            - env(safe-area-inset-right)
+        );
+}
+
+@media (min-width: 768px) {
+    /* Show slides and their notes side by side */
+
+    .shower.list.show-notes {
+        grid-template-columns:
+            calc(var(--slide-width) * var(--slide-scale))
+            calc(
+                100vw
+                - var(--slide-width) * var(--slide-scale)
+                - var(--slide-gap) * var(--slide-scale) * 3.5
+                - env(safe-area-inset-left)
+                - env(safe-area-inset-right)
+            );
+    }
+
+    .shower.list.show-notes .slide {
+        grid-column: 1 / 2;
+    }
+
+    .shower.list.show-notes .slide-notes {
+        grid-column: 2 / 3;
+    }
+}

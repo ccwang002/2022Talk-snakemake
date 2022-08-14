@@ -1,0 +1,5 @@
+/* Tighter slide layout (more vertical space) */
+
+.slide.tight {
+    padding-top: 47px;
+}

@@ -1,0 +1,84 @@
+/* Shower List */
+
+.shower.list {
+    --shower-list-block: calc(
+        var(--slide-gap) *
+        var(--slide-scale)
+    );
+    --shower-list-inline: calc(
+        var(--slide-gap) *
+        var(--slide-scale) +
+        env(safe-area-inset-left)
+    );
+
+    padding:
+        var(--shower-list-block)
+        var(--shower-list-inline);
+
+    overflow-x: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    grid-gap: calc(
+        var(--slide-gap) * var(--slide-scale)
+    );
+    grid-auto-rows: calc(
+        var(--slide-height) * var(--slide-scale)
+    );
+    grid-template-rows: min-content;
+    grid-template-columns: repeat(
+        auto-fill,
+        calc(var(--slide-width) * var(--slide-scale))
+    );
+    background-color: var(--color-back);
+}
+
+/* IE & Edge Fix */
+
+.shower.list {
+    position: absolute;
+    clip: rect(0, auto, auto, 0);
+}
+
+/* Responsive
+ * based on Bootstrap 5's breakpoints */
+
+.shower.list {
+    --slide-scale: 0.3;
+}
+
+@media (min-width: 576px) {
+    .shower.list {
+        --slide-scale: 0.4;
+    }
+}
+
+@media (min-width: 768px) {
+    .shower.list {
+        --slide-scale: 0.3;
+    }
+}
+
+@media (min-width: 992px) {
+    .shower.list {
+        --slide-scale: 0.4;
+    }
+}
+
+@media (min-width: 1200px) {
+    .shower.list {
+        --slide-scale: 0.5;
+    }
+}
+
+@media (min-width: 1600px) {
+    .shower.list {
+        --slide-scale: 0.75;
+    }
+}
+
+@media (min-width: 2336px) {
+    .shower.list  {
+        --slide-scale: 1;
+    }
+}
