@@ -40,7 +40,7 @@
 
 	<header class="caption">
 		<h1>Snakemake—simple data processing for researchers</h1>
-		<p><a href="">Yours Truly</a>, Famous Inc.</p>
+		<p><a href="https://blog.liang2.tw/">Liang-Bo Wang</a>, 2022-09-xx.</p>
 	</header>
 
 	<menu class="control">
@@ -50,11 +50,71 @@
 		</li>
 	</menu>
 
-	<section class="slide">
-		<h2>Slide Header</h2>
-		<p>Echo Park 8-bit sustainable umami deep v Kickstarter. DIY cliche typewriter brunch, Odd Future sriracha pickled aesthetic. Farm-to-table bespoke fingerstache, kale chips umami brunch letterpress.</p>
-		<p>Whatever authentic disrupt, you probably haven’t heard of them direct trade mlkshk Etsy. Gluten-free roof party plaid four loko quinoa.</p>
-		<p class="note">Echo Park 8-bit sustainable umami deep v Kickstarter.</p>
+	<!-- Cover Slide -->
+	<section id="cover" class="slide clear black">
+		<h2 id="talk-header">Snakemake—simple data processing for researchers</h2>
+		<p id="talk-info">
+			Liang-Bo Wang<br>
+			Taipei Bioinformatics Omnibus<br>
+			2022-09-xx
+		</p>
+		<p id="talk-license">
+			<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+				<img
+					alt="Creative Commons Attribution 4.0 International License"
+					src="pictures/cc-by-4.0.svg"
+					/>
+			</a>
+		</p>
+		<p id="usage-instr">
+			<kbd>Esc</kbd> to exit<br>
+			<kbd>←</kbd> <kbd>→</kbd> to navigate
+		</p>
+		<img src="pictures/cover.jpg" class="cover w" alt="">
+		<style>
+			#talk-header, #talk-info {
+				left: var(--slide-left-side);
+				right: var(--slide-right-side);
+				text-align: center;
+				position: absolute;
+				color: #FFFFFF;
+			}
+			#talk-header {
+				font-size: 3rem;
+				line-height: 1.25;
+				top: 12rem;
+			}
+			#talk-info {
+				font-size: 1.5rem;
+				line-height: 1.5;
+				/* top: 26rem; */
+				bottom: 4rem;
+			}
+			#talk-license, #usage-instr {
+				color: #FFFFFF;
+				font-size: 1.5rem;
+				line-height: 1.75;
+				bottom: 1rem;
+				position: absolute;
+			}
+			#talk-license {
+				left: var(--slide-left-side);
+			}
+			#talk-license a[rel="license"] {
+				background-image: none;
+			}
+			#talk-license a[rel="license"] img {
+				height: 1em;
+			}
+			#usage-instr {
+				text-align: right;
+				right: var(--slide-right-side);
+			}
+			#usage-instr kbd {
+				color: var(--color-key);
+				background-color: var(--color-light);
+			}
+		</style>
 	</section>
 
 	<section class="slide tight">
