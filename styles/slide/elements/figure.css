@@ -1,0 +1,37 @@
+/* Force figure resizing */
+
+img.fill.w {
+    width: 100%;
+}
+
+img.fill.h {
+    height: 100%;
+}
+
+
+/* Citation in the figure caption */
+
+figcaption.citation {
+    font-size: 0.8rem;
+    line-height: 1rem;
+}
+
+figcaption.citation.left {
+    text-align: left;
+}
+
+figcaption.citation.right {
+    text-align: right;
+}
+
+figcaption.citation.center {
+    text-align: center;
+}
+
+figcaption.citation p {
+    margin: 0;
+}
+
+figcaption.citation p + p {
+    margin-top: 0.5em;
+}

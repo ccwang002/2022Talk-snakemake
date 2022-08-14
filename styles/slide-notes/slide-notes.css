@@ -1,0 +1,41 @@
+@import 'content.css';
+@import 'shower-list-show-notes.css' screen;
+@import 'slide-notes-print.css' print;
+
+
+.slide-notes {
+    position: relative;
+    z-index: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    box-sizing: border-box;
+
+    max-width: var(--slide-notes-max-width);
+
+    font-size: 0.75rem;
+    line-height: 1.6em;
+}
+
+
+/* Remove slide notes in presentation and listing modes */
+
+.shower.full .slide-notes,
+.shower.list:not(.show-notes) .slide-notes {
+    display: none;
+}
+
+
+/* Responsive
+ * see all breakpoints in shower-list-slide-notes.css */
+
+@media (min-width: 992px) {
+    .slide-notes {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 2336px) {
+    .slide-notes {
+        font-size: 2rem;
+    }
+}

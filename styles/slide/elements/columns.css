@@ -1,0 +1,66 @@
+/* Columns */
+
+.columns {
+    display: grid;
+    width: 100%;
+    grid-column-gap: 48px;
+}
+
+.columns.two {
+    grid-template-columns: 1fr 1fr;
+}
+
+.columns.three {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.columns.four {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.columns.nogap {
+    grid-column-gap: 0;
+}
+
+
+/* Common two column layouts */
+
+.columns.two.l20,
+.columns.two.r80 {
+    grid-template-columns: 1fr 4fr;
+}
+
+.columns.two.l25,
+.columns.two.r75 {
+    grid-template-columns: 1fr 3fr;
+}
+
+.columns.two.l33,
+.columns.two.r67 {
+    grid-template-columns: 1fr 2fr;
+}
+
+.columns.two.l40,
+.columns.two.r60 {
+    grid-template-columns: 2fr 3fr;
+}
+
+.columns.two.l60,
+.columns.two.r40 {
+    grid-template-columns: 3fr 2fr;
+}
+
+.columns.two.l67,
+.columns.two.r33 {
+    grid-template-columns: 2fr 1fr;
+}
+
+.columns.two.l75,
+.columns.two.r25 {
+    grid-template-columns: 3fr 1fr;
+}
+
+.columns.two.l80,
+.columns.two.r20 {
+    grid-template-columns: 4fr 1fr;
+}

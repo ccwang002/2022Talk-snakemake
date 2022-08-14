@@ -1,0 +1,35 @@
+name: Publish to gh-pages
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  bundle-and-pubilsh:
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: Test and bundle the slides
+        run: |
+          npm ci
+          npm test
+          npm run bundle
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: slides
+          path: bundled/
+      - name: Publish to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: bundled
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update slides

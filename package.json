@@ -1,0 +1,48 @@
+{
+  "name": "my_shower_theme",
+  "description": "Material theme for Shower HTML presentation engine",
+  "version": "2.5.0",
+  "author": {
+    "name": "Liang-Bo Wang",
+    "url": "https://blog.liang2.tw/"
+  },
+  "homepage": "https://github.com/ccwang002/my_shower_theme",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ccwang002/my_shower_theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ccwang002/my_shower_theme/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "shower",
+    "presentation",
+    "material",
+    "theme"
+  ],
+  "files": [
+    "fonts/**",
+    "pictures/**",
+    "styles/**",
+    "index.html",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "devDependencies": {
+    "browser-sync": "^2.27.9",
+    "gh-pages": "^4.0.0",
+    "stylelint": "^14.8.2"
+  },
+  "scripts": {
+    "test": "stylelint 'styles/**/*.css'",
+    "start": "browser-sync start --server --no-notify --no-ui --no-ghost-mode --no-online --port 8080 --files 'fonts/*,pictures/*,styles/**,index.html'",
+    "bundle": "./scripts/bundle.sh",
+    "publish": "gh-pages -d bundled/ --dotfiles -m 'Update slides'"
+  },
+  "dependencies": {
+    "@highlightjs/cdn-assets": "^11.5.1",
+    "@shower/core": "^3.2.0",
+    "katex": "^0.16.0"
+  }
+}
