@@ -1,18 +1,18 @@
 {
-  "name": "my_shower_theme",
+  "name": "2022Talk-snakemake",
   "description": "Material theme for Shower HTML presentation engine",
   "version": "2.5.0",
   "author": {
     "name": "Liang-Bo Wang",
     "url": "https://blog.liang2.tw/"
   },
-  "homepage": "https://github.com/ccwang002/my_shower_theme",
+  "homepage": "https://github.com/ccwang002/2022Talk-snakemake",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ccwang002/my_shower_theme.git"
+    "url": "git://github.com/ccwang002/2022Talk-snakemake.git"
   },
   "bugs": {
-    "url": "https://github.com/ccwang002/my_shower_theme/issues"
+    "url": "https://github.com/ccwang002/2022Talk-snakemake/issues"
   },
   "license": "MIT",
   "keywords": [
@@ -43,6 +43,5 @@
   "dependencies": {
     "@highlightjs/cdn-assets": "^11.5.1",
     "@shower/core": "^3.2.0",
-    "katex": "^0.16.0"
   }
 }

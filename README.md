@@ -1,27 +1,10 @@
-# My customized theme for Shower HTML presentation
-[![Test status](https://github.com/ccwang002/my_shower_theme/actions/workflows/pages/pages-build-deployment/badge.svg)][workflow-status]
+# Snakemake—simple data processing for researchers (2022 Talk)
+[![Page build status](https://github.com/ccwang002/2022Talk-snakemake/actions/workflows/pages/pages-build-deployment/badge.svg)][workflow-status]
 
-This theme is based on the [Shower's material theme][material
-theme].
-It adds toggleable slide notes, code highlighting, LaTeX rendering, and some other customized styles.
 [See it in action][gh-pages].
 
-| Slide notes shown | Slide notes hidden |
-|-------------------|--------------------|
-| ![Screenshot with slides notes shown](pictures/demo-slide-notes-shown.png) | ![Screenshot with slide notes hidden](pictures/demo-slide-notes-hidden.png) |
-
-All the features of the official Shower themes are supported, so check out [the overview of their features](https://github.com/shower/shower/blob/main/docs/features.md) for the general usage of Shower presentation engine and how to modify the theme variables.
-
-[material theme]: https://github.com/shower/material
-[gh-pages]: https://blog.liang2.tw/my_shower_theme/
-[workflow-status]: https://github.com/ccwang002/my_shower_theme/actions/workflows/publish.yml
-
-
-## How to use this theme without setup
-To use this theme without any setup (e.g., npm, git repo), download and extract the artifact (`slides.zip`) from [the latest workflow output][workflow-status].
-Open `index.html` to start the presentation.
-This folder serves as a standalone and offline presentation.
-Develop the presentation by modifying `index.html` and other related files as needed.
+[gh-pages]: https://blog.liang2.tw/2022Talk-snakemake/
+[workflow-status]: https://github.com/ccwang002/2022Talk-snakemake/actions/workflows/publish.yml
 
 
 ## How to set up this theme
