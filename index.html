@@ -5,14 +5,14 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<link rel="stylesheet" href="lib/highlightjs/styles/github.min.css" type="text/css"/>
-	<link rel="stylesheet" href="lib/katex/katex.min.css" type="text/css"/>
 	<link rel="stylesheet" href="styles/styles.css">
     <style>
         /* Customize the theme */
 
 		.shower {
 			--slide-ratio: calc(16 / 9);
-			--color-key: #008aa5;
+			--color-key: #9b582f;
+			--color-white: #eaeaea;
 			--slide-notes-max-width: 80ch;
 		}
 
@@ -56,62 +56,75 @@
 		<p id="talk-info">
 			Liang-Bo Wang<br>
 			Taipei Bioinformatics Omnibus<br>
-			2022-09-xx
-		</p>
-		<p id="talk-license">
-			<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
-				<img
-					alt="Creative Commons Attribution 4.0 International License"
-					src="pictures/cc-by-4.0.svg"
-					/>
-			</a>
+			<span style="color: var(--color-black)">2022-09-xx</span>
 		</p>
 		<p id="usage-instr">
 			<kbd>Esc</kbd> to exit<br>
-			<kbd>←</kbd> <kbd>→</kbd> to navigate
+			<kbd>←</kbd> <kbd>→</kbd> to navigate<br>
+			<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+				<img alt="Creative Commons Attribution 4.0 International License"
+					src="pictures/cc-by-4.0.svg"/>
+			</a>
 		</p>
-		<img src="pictures/cover.jpg" class="cover w" alt="">
+		<figure>
+			<img src="pictures/donggeun-lee-BpWvu_KLJxo-unsplash.jpg" class="cover w" alt="">
+			<figcaption class="copyright bottom white">
+				Photo by <a href="https://unsplash.com/@dizy64">DongGeun Lee</a>
+				on <a href="https://unsplash.com">Unsplash</a>
+			</figcaption>
+		</figure>
 		<style>
 			#talk-header, #talk-info {
 				left: var(--slide-left-side);
 				right: var(--slide-right-side);
 				text-align: center;
 				position: absolute;
-				color: #FFFFFF;
+				color: var(--color-white);
+				margin: 0;
 			}
 			#talk-header {
 				font-size: 3rem;
+				font-weight: 600;
 				line-height: 1.25;
-				top: 12rem;
+				top: 8rem;
+				background-image: linear-gradient(
+					to right,
+					#9b582f5a 0%,
+					#4f453c8e 100%
+				);
+				left: 0;
+				right: 0;
+				padding: 1.25em calc(var(--slide-left-side) / 2);
 			}
 			#talk-info {
 				font-size: 1.5rem;
 				line-height: 1.5;
-				/* top: 26rem; */
 				bottom: 4rem;
 			}
-			#talk-license, #usage-instr {
-				color: #FFFFFF;
-				font-size: 1.5rem;
-				line-height: 1.75;
-				bottom: 1rem;
-				position: absolute;
-			}
-			#talk-license {
-				left: var(--slide-left-side);
-			}
-			#talk-license a[rel="license"] {
-				background-image: none;
-			}
-			#talk-license a[rel="license"] img {
-				height: 1em;
+			#cover .copyright {
+				left: calc(var(--slide-left-side) / 2);
 			}
 			#usage-instr {
+				color: var(--color-white);
+				font-size: 1rem;
+				line-height: 1.75;
+				right: calc(var(--slide-right-side) / 2);
+				/* right: 20px; */
+				bottom: 20px;
+				position: absolute;
 				text-align: right;
-				right: var(--slide-right-side);
+				margin: 0;
+			}
+			#usage-instr a[rel="license"] {
+				background-image: none;
+			}
+			#usage-instr a[rel="license"] img {
+				height: 1em;
+				color: var(--color-white);
+				/* vertical-align: baseline; */
 			}
 			#usage-instr kbd {
-				color: var(--color-key);
+				color: var(--color-black);
 				background-color: var(--color-light);
 			}
 		</style>
@@ -130,6 +143,36 @@ def order(request):
         .format(..., task=<mark>humanize(task_id)</mark>)
     )</code>
 		</pre>
+	</section>
+
+	<section id="date-eng-vs-bioinfo" class="slide">
+		<h2>Workflow engine choices</h2>
+		<div class="columns two">
+			<div>
+
+			</div>
+			<div>
+				<figure>
+					<img src="pictures/BenSiranosian-tweet.png" alt="Tweet screenshot by @BenSiranosian">
+					<figcaption class="citation">
+						From <a href="https://twitter.com/BenSiranosian/status/1558631901346164736">@BenSiranosian's tweet</a> and <a href="https://www.bsiranosian.com/bioinformatics/why-are-bioinformatics-workflows-different/">his blog post</a>.
+					</figcaption>
+				</figure>
+			</div>
+		</div>
+		<style>
+			#date-eng-vs-bioinfo figure {
+				text-align: center;
+			}
+			#date-eng-vs-bioinfo figure img {
+				width: 100%;
+			}
+		</style>
+	</section>
+
+	<section class="slide">
+		<blockquote>
+			<p>Why are bioinformatics pipelines different than workflows in data engineering? My thoughts on the ecosystem of workflow managers, and where the field might be headed: <a href="https://www.bsiranosian.com/bioinformatics/why-are-bioinformatics-workflows-different/">https://bsiranosian.com/bioinformatics…</a></p>&mdash; Ben Siranosian, PhD (@BenSiranosian) <a href="https://twitter.com/BenSiranosian/status/1558631901346164736">August 14, 2022</a></blockquote>
 	</section>
 
 	<section class="slide-notes">
