@@ -9,7 +9,7 @@
     outline-offset: calc(
         -1 * var(--slide-scale) * 8px
     );
-    line-height: 1;
+    line-height: 1.25;
     font-size: calc(
         var(--slide-scale) * 48px
     );
