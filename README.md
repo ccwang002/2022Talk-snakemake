@@ -24,7 +24,7 @@ This repo also sets up the GitHub workflow that will automatically bundle and pu
 
 ## License
 The theme is shared under [MIT license](LICENSE.md).
-It directly modifies the official [Material][material theme] theme ([the original license][material-orig-license]) and will be in sync with upstream updates.
+It directly modifies the official [Material][Material theme] theme ([the original license][Material license]) and will be in sync with upstream updates.
 
 The theme builds on the following packages and resources:
 
@@ -32,8 +32,8 @@ The theme builds on the following packages and resources:
 - [Shower]: HTML5 presentation framework by Vadim Makeev *et al.*, MIT license
 - [highlight.js]: Code highlighting library by Ivan Sagalaev *et al.*, MIT license
 - Fonts:
-    - [Source Sans]: SIL Open Font License 1.1
-    - [Fira Code]: SIL Open Font License 1.1
+    - [Source Sans], SIL Open Font License 1.1
+    - [Fira Code], SIL Open Font License 1.1
 
 [Material theme]: https://github.com/shower/material
 [Material license]: LICENSE.shower_material.md
