@@ -130,6 +130,44 @@
 		</style>
 	</section>
 
+	<section id="scenarios" class="slide tight">
+		<h2>My top needs for a pipeline/workflow</h2>
+		<div class="two columns">
+			<div>
+				<p>A pipeline to process multiple samples on different computing platforms</p>
+				<img src="pictures/scenario-data-processing_DALL·E.png" alt="DALL·E generated art using the prompt 'three repeats of a robot working on a pipeline in parallel, illustration'">
+			</div>
+			<div>
+				<p>A workflow to reproduce my analysis steps and results</p>
+				<img src="pictures/secnario-data-analysis_DALL·E.png" alt="DALL·E generated art using the prompt 'a robot arm handling multiple overlapped pages of a scientific manuscript with charts and illustrations, digital art'">
+			</div>
+		</div>
+		<style>
+			#scenarios img {
+				width: 20rem;
+				text-align: center;
+			}
+		</style>
+	</section>
+
+	<section id="scenario-data-processing" class="slide">
+		<h2>Scenario 1: A pipeline to process multiple samples on different computing platforms</h2>
+		<ul>
+			<li>The pipeline needs to run at multiple environments: standalone server, HPC cluster, and cloud</li>
+			<li>HPC cluster has its own job queue (LSF)</li>
+			<li>My lab/school uses public cloud service, no infrastructure in place</li>
+		</ul>
+	</section>
+
+	<section id="scenario-reproducible-analysis" class="slide">
+		<h2>Scenario 2: A workflow to reproduce my analysis steps and results</h2>
+		<ul>
+			<li>Figure generations</li>
+			<li>Update the results when the new data come in</li>
+			<li>Others can easily set up the environment and reproduce</li>
+		</ul>
+	</section>
+
 	<section class="slide tight">
 		<pre class="language-python">
 <code>from django_q.humanhash import humanize

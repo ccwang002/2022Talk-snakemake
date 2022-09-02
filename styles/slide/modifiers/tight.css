@@ -1,5 +1,10 @@
 /* Tighter slide layout (more vertical space) */
 
 .slide.tight {
-    padding-top: 47px;
+    padding-top: 31px;
+}
+
+.slide.tight p {
+    margin-bottom: 0.5em;
+    line-height: 1.5;
 }
