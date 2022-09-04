@@ -162,9 +162,9 @@
 		<h2>Scenario 1: A pipeline to process multiple samples on different computing platforms</h2>
 		<div class="two columns l67">
 			<ul>
-				<li>The pipeline needs to run at multiple environments: standalone server, HPC cluster, and cloud</li>
-				<li>HPC cluster has its own job queue (LSF)</li>
-				<li>My lab/school uses public cloud service, no infrastructure in place</li>
+				<li>Run at different environments: standalone server, HPC cluster, and cloud</li>
+				<li>HPC cluster has its own job queue and computing architecture (<a href="https://en.wikipedia.org/wiki/IBM_Spectrum_LSF">LSF</a> at my school)</li>
+				<li>We use public cloud services (Google Cloud and AWS) and we manage the usage ourselves</li>
 			</ul>
 			<figure>
 				<img
@@ -178,6 +178,10 @@
 				margin-top: 0.5em;
 			}
 		</style>
+	</section>
+
+	<section class="slide-notes">
+		<h2>Scenario 1: Scalable data processing pipeline</h2>
 	</section>
 
 	<section id="scenario-reproducible-analysis" class="slide">
@@ -202,19 +206,8 @@
 		</style>
 	</section>
 
-	<section class="slide tight">
-		<pre class="language-python">
-<code>from django_q.humanhash import humanize
-def order(request):
-    fruit = request.POST.get('fruit_type', '')
-    num_fruit = int(request.POST.get('num_fruit', '1'))
-    task_id = <mark>async(...)</mark>  # Create async task
-    messages.info(  # Django message as notification
-        request,
-        'You ordered {fruit:s} x {num_fruit:d} (task: {task})'
-        .format(..., task=<mark>humanize(task_id)</mark>)
-    )</code>
-		</pre>
+	<section class="slide-notes">
+		<h2>Scenario 2: Reproducible data analysis workflow</h2>
 	</section>
 
 	<section id="date-eng-vs-bioinfo" class="slide">
