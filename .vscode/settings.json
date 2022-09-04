@@ -11,5 +11,6 @@
     },
     "custom": true, // Enable the `custom` dictionary
     "internal-terms": false // Disable the `internal-terms` dictionary
-  }
+  },
+  "editor.lineNumbers": "off"
 }
