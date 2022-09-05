@@ -134,7 +134,7 @@
 		<h2>My top needs for a pipeline/workflow</h2>
 		<div class="two columns">
 			<div>
-				<p>A pipeline to process multiple samples on different computing platforms</p>
+				<p>To process multiple samples on different computing platforms</p>
 				<figure>
 					<img class="fill w"
 						src="pictures/scenario-data-processing_DALL·E.png"
@@ -142,7 +142,7 @@
 				</figure>
 			</div>
 			<div>
-				<p>A workflow to reproduce my analysis steps and results</p>
+				<p>To reproduce my analysis steps and results</p>
 				<figure>
 					<img class="fill w"
 						src="pictures/secnario-reproducible-analysis_DALL·E.png"
@@ -188,9 +188,10 @@
 		<h2>Scenario 2: A workflow to reproduce my analysis steps and results</h2>
 		<div class="two columns l67">
 			<ul>
-				<li>Figure generations</li>
+				<li>Steps to build the dataset for downstream analysis</li>
+				<li>Figure generations in the manuscript</li>
 				<li>Update the results when the new data come in</li>
-				<li>Others can easily set up the environment and reproduce</li>
+				<li>Preferrably, others can easily set up the workflow and reproduce in an unknown environment</li>
 			</ul>
 			<figure>
 				<img
@@ -209,6 +210,110 @@
 	<section class="slide-notes">
 		<h2>Scenario 2: Reproducible data analysis workflow</h2>
 	</section>
+
+	<section id="scenario-comparison" class="slide tight">
+		<!-- <h2>Comparison of the scenarios</h2> -->
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th scope="col">
+						<img
+						src="pictures/scenario-data-processing_DALL·E.png"
+						alt="Illustration of the scenario of a reproducible analysis workflow. DALL·E generated art."><br>
+						Data processing
+					</th>
+					<th scope="col">
+						<img
+						src="pictures/secnario-reproducible-analysis_DALL·E.png"
+						alt="Illustration of the scenario of a reproducible analysis workflow. DALL·E generated art."><br>
+						Reproducible analysis
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">Inputs</th>
+					<td>Lots of samples</td>
+					<td>Mostly the same inputs</td>
+				</tr>
+				<tr>
+					<th scope="row">Run type</th>
+					<td>Once per sample</td>
+					<td>Multiple times</td>
+				</tr>
+				<tr>
+					<th scope="row">Workflow stability</th>
+					<td>Stable</td>
+					<td>Subject to change</td>
+				</tr>
+				<tr>
+					<th scope="row">Computing environment</th>
+					<td>Known and multiple<br>
+						local, HPC, and cloud</td>
+					<td>Known and limited*<br>
+						mostly local</td>
+				</tr>
+			</tbody>
+		</table>
+		<style>
+			#scenario-comparison img {
+				height: 7em;
+				/* float: left; */
+			}
+		</style>
+	</section>
+
+	<section id="what-is-snakemake" class="slide">
+		<img src="pictures/snakemake_logo.svg" alt="Logo of Snakemake">
+		<h2>What is Snakemake?</h2>
+		<p><a href="https://snakemake.github.io/">Snakemake</a> is a Python-based Makefile-like workflow management tool.<br>
+			A workflow contains a set of <strong>rules</strong>:</p>
+		<ul>
+			<li>A rule describes how to create output files/patterns from input files/pattern</li>
+			<li>The workflow file runs like a Python script</li>
+			<li>Can import external Python libraries</li>
+			<li>Can create one's own Python functions</li>
+		</ul>
+		<style>
+			#what-is-snakemake img {
+				float: right;
+				width: 4.5em;
+			}
+		</style>
+	</section>
+
+	<section id="how-snakemake-works" class="slide tight">
+		<h2>How does Snakemake work?</h2>
+		<img src="pictures/example-dag.svg" alt="">
+		<ol>
+			<li>Snakemake finds the rule that generates the final outputs. <br>
+				<mark>Trace the workflow backwards</mark></li>
+			<li>If all the inputs exist, it's ready to run the commands of this rule<br>
+				(create a new job)</li>
+			<li>If some inputs do not exist, find other rules to generate the required input files (create a dependent job)</li>
+			<li>Repeat the process until all outputs can be generated from existing files (complete a job dependency graph)</li>
+			<li>Snakemake will start running the corresponding commands/jobs</li>
+		</ol>
+		<style>
+			#how-snakemake-works img {
+				float: right;
+				margin-left: 0.5em;
+			}
+		</style>
+	</section>
+
+	<section id="snakemake-in-action" class="slide">
+		<h2>Run snakemake in action</h2>
+		<p>Write RNA-seq pipeline in Snakemake to assess transcript abundance:</p>
+		<ol>
+			<li>Build the alignment index</li>
+			<li>Map sample reads to genome</li>
+			<li>Assess sample's transcript abundance</li>
+		</ol>
+		<p>Tools to use: HISAT2 + StringTie (<a href="https://www.nature.com/nprot/journal/v11/n9/full/nprot.2016.095.html">new Tuxedo pipeline</a>)</p>
+	</section>
+
 
 	<section id="date-eng-vs-bioinfo" class="slide">
 		<h2>Workflow engine choices</h2>
