@@ -363,7 +363,9 @@
 
 	<script src="node_modules/@shower/core/dist/shower.js"></script>
 	<script defer src="node_modules/@highlightjs/cdn-assets/highlight.min.js"></script>
-	<script>
+	<script type="module">
+		import snakemake from "./scripts/highlightjs-snakemake.js"
+
 		document.addEventListener('DOMContentLoaded', (event) => {
 			// Display or hide the slide notes
 			const body = document.querySelector('body');
@@ -374,6 +376,7 @@
 			});
 
 			// Load Highlight.js
+			hljs.registerLanguage('snakemake', snakemake);
 			hljs.highlightAll();
 		});
 	</script>
