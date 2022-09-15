@@ -337,20 +337,20 @@
 				Known as <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#wildcards">wildcards</a> that matches the possible existing files.
 			</dd>
 			<dt><code>input:</code>, <code>output:</code></dt>
-			<dd></dd>
+			<dd>File patterns for inputs and outputs. Use key-value pairs <code><strong>key</strong>='...'</code> when there are multiple patterns. They are just Python strings and thus can be referred elsewhere by <code>rules.<strong>myrule</strong>.output.<strong>key</strong></code>.</dd>
 			<dt></dt>
 			<dd></dd>
 		</dl>
-		<p>
-			If there is a output <code>stranded_readcount/<mark>my_sample_a</mark>.tsv</code>, <code>{sample}</code> expands to <code>my_sample_a</code> in all occurrences. So snakemake will look for the corresponding inputs and generate the corresponding shell commands:
+		<p>Due to the way snakemake executes, it's easier to resolve the output first by realizing all the wildcard variables. Then expands the rest of the rule (inputs, parameters, and etc.)</p>
 
-			<pre class="language-shell">
+		<p>For example, if there is a output <code>stranded_readcount/<mark>my_sample_a</mark>.tsv</code>, <code>{sample}</code> expands to <code>my_sample_a</code> in all occurrences. So snakemake will look for the corresponding inputs and generate the corresponding shell commands:</p>
+		<pre class="language-shell">
 <code>featureCounts -T 16 -a /path/to/genes.gtf \
 	-o stranded_readcount/my_sample_a.tsv \
 	inputs/my_sample_a.bam \
-	2> logs/stranded_readcount/my_sample_a.log</code>
-</pre>
-		</p>
+	2> logs/stranded_readcount/my_sample_a.log</code></pre>
+		<p>To make the pipeline more extensible, use <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html">a config file</a> and a run-all rule to process all samples of a batch.</p>
+
 		<style>
 			#example-notes {
 				grid-row-end: span 2;
@@ -367,13 +367,28 @@
 		</pre>
 		<p class="next">Alternatively, add a run-all rule to <code>snakemake all</code>:</p>
 		<pre class="language-snakemake next">
-<code>SAMPLES = config['samples']
+<code>with open(config['sample_list']) as f:
+	SAMPLES = f.read().splitlines()
 rule all:
 	input: expand(rules.readcount.output.count_tsv, \
 				  sample=SAMPLES)</code>
 		</pre>
 	</section>
 
+	<section id="example-rule-extended" class="slide tight">
+		<p>Other powerful features to go beyond wildcard expansion:</p>
+		<pre class="language-snakemake">
+<code>rule readcount:
+    input: unpack(find_bam_path)  # fills in bam and bai
+    resources:  # dynamic resource allocation
+		mem_mb=lambda wildcards, attempt: \
+			16000 + 16000 * (attempt - 1)
+
+def find_bam_path(wildcards):
+	bam_pth = f"{config['bam_dir']}/{wildcards.sample}.bam"
+	return {'bam': bam_pth, 'bai': bam_pth + '.bai'}</code>
+		</pre>
+	</section>
 
 
 	<section id="date-eng-vs-bioinfo" class="slide">
