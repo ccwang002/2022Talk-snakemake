@@ -284,7 +284,7 @@
 	</section>
 
 	<section id="how-snakemake-works" class="slide tight">
-		<h2>How does Snakemake work?</h2>
+		<h2>How Snakemake works in general</h2>
 		<img src="pictures/example-dag.svg" alt="">
 		<ol>
 			<li>Snakemake finds the rule that generates the final outputs. <br>
@@ -304,15 +304,76 @@
 	</section>
 
 	<section id="snakemake-in-action" class="slide">
-		<h2>Run snakemake in action</h2>
-		<p>Write RNA-seq pipeline in Snakemake to assess transcript abundance:</p>
+		<h2>A RNA-seq pipeline in action</h2>
+		<p>Generate readcounts per gene from stranded RNA-seq aligned BAMs</p>
 		<ol>
-			<li>Build the alignment index</li>
-			<li>Map sample reads to genome</li>
-			<li>Assess sample's transcript abundance</li>
+			<li>Find the local path of the sample BAMs</li>
+			<li>Generate read counts (featureCounts)</li>
+			<li>Clean up and compress the outputs</li>
+			<li>Calculate FPKM, FPKM-UQ, and TPM values</li>
 		</ol>
-		<p>Tools to use: HISAT2 + StringTie (<a href="https://www.nature.com/nprot/journal/v11/n9/full/nprot.2016.095.html">new Tuxedo pipeline</a>)</p>
 	</section>
+
+	<section id="example-rule" class="slide tight">
+		<pre class="language-snakemake">
+<code>rule readcount:
+    output: count_tsv='stranded_readcount/{sample}.tsv'
+    input: bam='inputs/{sample}.bam',
+		   bai='inputs/{sample}.bam.bai'
+    log: 'logs/stranded_readcount/{sample}.log'
+    params: gtf=GENE_GTF_PTH
+    threads: 16
+    shell:
+        'featureCounts -T {threads} -a {params.gtf} ...'
+        '-o {output.count_tsv} {input.bam} 2> {log}'</code>
+		</pre>
+	</section>
+
+	<section id="example-notes" class="slide-notes">
+		<h2>Snakemake syntax explained</h2>
+		<dl>
+			<dt><code>{sample}</code></dt>
+			<dd>
+				Known as <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#wildcards">wildcards</a> that matches the possible existing files.
+			</dd>
+			<dt><code>input:</code>, <code>output:</code></dt>
+			<dd></dd>
+			<dt></dt>
+			<dd></dd>
+		</dl>
+		<p>
+			If there is a output <code>stranded_readcount/<mark>my_sample_a</mark>.tsv</code>, <code>{sample}</code> expands to <code>my_sample_a</code> in all occurrences. So snakemake will look for the corresponding inputs and generate the corresponding shell commands:
+
+			<pre class="language-shell">
+<code>featureCounts -T 16 -a /path/to/genes.gtf \
+	-o stranded_readcount/my_sample_a.tsv \
+	inputs/my_sample_a.bam \
+	2> logs/stranded_readcount/my_sample_a.log</code>
+</pre>
+		</p>
+		<style>
+			#example-notes {
+				grid-row-end: span 2;
+			}
+		</style>
+	</section>
+
+	<section id="example-execution" class="slide tight">
+		<pre class="language-bash">
+<code>$ snakemake -j 32 stranded_readcount/my_sample_{a,b,c,d}.tsv
+# featureCounts ... inputs/my_sample_a.bam
+# featureCounts ... inputs/my_sample_b.bam
+# ... (two jobs in parallel)</code>
+		</pre>
+		<p class="next">Alternatively, add a run-all rule to <code>snakemake all</code>:</p>
+		<pre class="language-snakemake next">
+<code>SAMPLES = config['samples']
+rule all:
+	input: expand(rules.readcount.output.count_tsv, \
+				  sample=SAMPLES)</code>
+		</pre>
+	</section>
+
 
 
 	<section id="date-eng-vs-bioinfo" class="slide">
@@ -363,6 +424,7 @@
 
 	<script src="node_modules/@shower/core/dist/shower.js"></script>
 	<script defer src="node_modules/@highlightjs/cdn-assets/highlight.min.js"></script>
+	<script defer src="node_modules/@highlightjs/cdn-assets/languages/shell.min.js"></script>
 	<script type="module">
 		import snakemake from "./scripts/highlightjs-snakemake.js"
 

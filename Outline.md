@@ -23,6 +23,7 @@ Snakemake 是一個靈活易用的workflow engine，用來建立一個可再現�
     - Solve 90% of my use cases
 
 - Snakemake pipeline examples
+    - https://rnabio.org/resources/
     - https://github.com/ding-lab/cptac_rna_expression
     - https://github.com/ding-lab/HTAN_bulkRNA_expression
 
