@@ -134,7 +134,7 @@
 		<h2>My top needs for a pipeline/workflow</h2>
 		<div class="two columns">
 			<div>
-				<p>A pipeline to process multiple samples on different computing platforms</p>
+				<p>To process multiple samples on different computing platforms</p>
 				<figure>
 					<img class="fill w"
 						src="pictures/scenario-data-processing_DALL·E.png"
@@ -142,7 +142,7 @@
 				</figure>
 			</div>
 			<div>
-				<p>A workflow to reproduce my analysis steps and results</p>
+				<p>To reproduce my analysis steps and results</p>
 				<figure>
 					<img class="fill w"
 						src="pictures/secnario-reproducible-analysis_DALL·E.png"
@@ -188,9 +188,10 @@
 		<h2>Scenario 2: A workflow to reproduce my analysis steps and results</h2>
 		<div class="two columns l67">
 			<ul>
-				<li>Figure generations</li>
+				<li>Steps to build the dataset for downstream analysis</li>
+				<li>Figure generations in the manuscript</li>
 				<li>Update the results when the new data come in</li>
-				<li>Others can easily set up the environment and reproduce</li>
+				<li>Preferrably, others can easily set up the workflow and reproduce in an unknown environment</li>
 			</ul>
 			<figure>
 				<img
@@ -208,6 +209,218 @@
 
 	<section class="slide-notes">
 		<h2>Scenario 2: Reproducible data analysis workflow</h2>
+	</section>
+
+	<section id="scenario-comparison" class="slide tight">
+		<!-- <h2>Comparison of the scenarios</h2> -->
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th scope="col">
+						<img
+						src="pictures/scenario-data-processing_DALL·E.png"
+						alt="Illustration of the scenario of a reproducible analysis workflow. DALL·E generated art."><br>
+						Data processing
+					</th>
+					<th scope="col">
+						<img
+						src="pictures/secnario-reproducible-analysis_DALL·E.png"
+						alt="Illustration of the scenario of a reproducible analysis workflow. DALL·E generated art."><br>
+						Reproducible analysis
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">Inputs</th>
+					<td>Lots of samples</td>
+					<td>Mostly the same inputs</td>
+				</tr>
+				<tr>
+					<th scope="row">Run type</th>
+					<td>Once per sample</td>
+					<td>Multiple times</td>
+				</tr>
+				<tr>
+					<th scope="row">Workflow stability</th>
+					<td>Stable</td>
+					<td>Subject to change</td>
+				</tr>
+				<tr>
+					<th scope="row">Computing environment</th>
+					<td>Known and multiple<br>
+						local, HPC, and cloud</td>
+					<td>Known and limited*<br>
+						mostly local</td>
+				</tr>
+			</tbody>
+		</table>
+		<style>
+			#scenario-comparison img {
+				height: 7em;
+				/* float: left; */
+			}
+		</style>
+	</section>
+
+	<section id="about-me" class="slide">
+		<h2>About me</h2>
+	</section>
+
+	<section id="what-is-snakemake" class="slide">
+		<img src="pictures/snakemake_logo.svg" alt="Logo of Snakemake">
+		<h2>What is Snakemake?</h2>
+		<p><a href="https://snakemake.github.io/">Snakemake</a> is a Python-based Makefile-like workflow management tool.<br>
+			A workflow contains a set of <strong>rules</strong>:</p>
+		<ul>
+			<li>A rule describes how to create output files/patterns from input files/pattern</li>
+			<li>The workflow file runs like a Python script</li>
+			<li>Can import external Python libraries</li>
+			<li>Can create one's own Python functions</li>
+		</ul>
+		<style>
+			#what-is-snakemake img {
+				float: right;
+				width: 4.5em;
+			}
+		</style>
+	</section>
+
+	<section id="how-snakemake-works" class="slide tight">
+		<h2>How Snakemake works in general</h2>
+		<img src="pictures/example-dag.svg" alt="">
+		<ol>
+			<li>Snakemake finds the rule that generates the final outputs. <br>
+				<mark>Trace the workflow backwards</mark></li>
+			<li>If all the inputs exist, it's ready to run the commands of this rule<br>
+				(create a new job)</li>
+			<li>If some inputs do not exist, find other rules to generate the required input files (create a dependent job)</li>
+			<li>Repeat the process until all outputs can be generated from existing files (complete a job dependency graph)</li>
+			<li>Snakemake will start running the corresponding commands/jobs</li>
+		</ol>
+		<style>
+			#how-snakemake-works img {
+				float: right;
+				margin-left: 0.5em;
+			}
+		</style>
+	</section>
+
+	<section id="snakemake-in-action" class="slide">
+		<h2>A RNA-seq pipeline in action</h2>
+		<p>Generate readcounts per gene from stranded RNA-seq aligned BAMs</p>
+		<ol>
+			<li>Find the local path of the sample BAMs</li>
+			<li>Generate read counts (featureCounts)</li>
+			<li>Clean up and compress the outputs</li>
+			<li>Calculate FPKM, FPKM-UQ, and TPM values</li>
+		</ol>
+	</section>
+
+	<section id="example-rule" class="slide tight">
+		<pre class="language-snakemake">
+<code>rule readcount:
+    output: count_tsv='stranded_readcount/{sample}.tsv'
+    input: bam='inputs/{sample}.bam',
+		   bai='inputs/{sample}.bam.bai'
+    log: 'logs/stranded_readcount/{sample}.log'
+    params: gtf=GENE_GTF_PTH
+    threads: 16
+    shell:
+        'featureCounts -T {threads} -a {params.gtf} ...'
+        '-o {output.count_tsv} {input.bam} 2> {log}'</code>
+		</pre>
+	</section>
+
+	<section id="example-notes" class="slide-notes">
+		<h2>Snakemake syntax explained</h2>
+		<dl>
+			<dt><code>{sample}</code></dt>
+			<dd>
+				Known as <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#wildcards">wildcards</a> that matches the possible existing files.
+			</dd>
+			<dt><code>input:</code>, <code>output:</code></dt>
+			<dd>File patterns for inputs and outputs. Use key-value pairs <code><strong>key</strong>='...'</code> when there are multiple patterns. They are just Python strings and thus can be referred elsewhere by <code>rules.<strong>myrule</strong>.output.<strong>key</strong></code>.</dd>
+			<dt></dt>
+			<dd></dd>
+		</dl>
+		<p>Due to the way snakemake executes, it's easier to resolve the output first by realizing all the wildcard variables. Then expands the rest of the rule (inputs, parameters, and etc.)</p>
+
+		<p>For example, if there is a output <code>stranded_readcount/<mark>my_sample_a</mark>.tsv</code>, <code>{sample}</code> expands to <code>my_sample_a</code> in all occurrences. So snakemake will look for the corresponding inputs and generate the corresponding shell commands:</p>
+		<pre class="language-shell">
+<code>featureCounts -T 16 -a /path/to/genes.gtf \
+	-o stranded_readcount/my_sample_a.tsv \
+	inputs/my_sample_a.bam \
+	2> logs/stranded_readcount/my_sample_a.log</code></pre>
+		<p>To make the pipeline more extensible, use <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html">a config file</a> and a run-all rule to process all samples of a batch.</p>
+
+		<style>
+			#example-notes {
+				grid-row-end: span 2;
+			}
+		</style>
+	</section>
+
+	<section id="example-execution" class="slide tight">
+		<pre class="language-bash">
+<code>$ snakemake -j 32 stranded_readcount/my_sample_{a,b,c,d}.tsv
+# featureCounts ... inputs/my_sample_a.bam
+# featureCounts ... inputs/my_sample_b.bam
+# ... (two jobs in parallel)</code>
+		</pre>
+		<p class="next">Alternatively, add a run-all rule to <code>snakemake all</code>:</p>
+		<pre class="language-snakemake next">
+<code>with open(config['sample_list']) as f:
+	SAMPLES = f.read().splitlines()
+rule all:
+	input: expand(rules.readcount.output.count_tsv, \
+				  sample=SAMPLES)</code>
+		</pre>
+	</section>
+
+	<section id="example-rule-extended" class="slide tight">
+		<p>Other powerful features to go beyond wildcard expansion:</p>
+		<pre class="language-snakemake">
+<code>rule readcount:
+    input: unpack(find_bam_path)  # fills in bam and bai
+    resources:  # dynamic resource allocation
+		mem_mb=lambda wildcards, attempt: \
+			16000 + 16000 * (attempt - 1)
+
+def find_bam_path(wildcards):
+	bam_pth = f"{config['bam_dir']}/{wildcards.sample}.bam"
+	return {'bam': bam_pth, 'bai': bam_pth + '.bai'}</code>
+		</pre>
+	</section>
+
+	<section id="things-i-like" class="slide tight">
+		<h2>Things I like about Snakemake</h2>
+		<ul>
+			<li>Separate the definition and execution of tasks
+				<ul>
+					<li>Tasks are modular and reusable</li>
+					<li>Maximally utilize the resources (CPUs and memory)</li>
+					<li>Integrate with external job scheduler (e.g., HPC and Kubernetes)</li>
+				</ul>
+			</li>
+			<li class="next">Powerful features that are easy to use
+				<ul>
+					<li>Flexible rules by custom Python functions</li>
+					<li>Package management (conda),  containerization (docker), and tool wrappers</li>
+					<li>Temporary and piped outputs</li>
+					<li>Many more features and constantly increasing</li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+
+	<section id="things-i-dont-like" class="slide tight">
+		<h2>Things I don't like about Snakemake</h2>
+	</section>
+
+	<section id="best-practices" class="slide">
+		<h2>My best practices</h2>
 	</section>
 
 	<section id="date-eng-vs-bioinfo" class="slide">
@@ -240,9 +453,6 @@
 			<p>Why are bioinformatics pipelines different than workflows in data engineering? My thoughts on the ecosystem of workflow managers, and where the field might be headed: <a href="https://www.bsiranosian.com/bioinformatics/why-are-bioinformatics-workflows-different/">https://bsiranosian.com/bioinformatics…</a></p>&mdash; Ben Siranosian, PhD (@BenSiranosian) <a href="https://twitter.com/BenSiranosian/status/1558631901346164736">August 14, 2022</a></blockquote>
 	</section>
 
-	<section class="slide-notes">
-	</section>
-
 	<div class="progress"></div>
 
 	<!-- GitHub badge -->
@@ -258,7 +468,10 @@
 
 	<script src="lib/shower/shower.js"></script>
 	<script defer src="lib/highlightjs/highlight.min.js"></script>
-	<script>
+	<script defer src="lib/highlightjs/languages/shell.min.js"></script>
+	<script type="module">
+		import snakemake from "./scripts/highlightjs-snakemake.js"
+
 		document.addEventListener('DOMContentLoaded', (event) => {
 			// Display or hide the slide notes
 			const body = document.querySelector('body');
@@ -269,6 +482,7 @@
 			});
 
 			// Load Highlight.js
+			hljs.registerLanguage('snakemake', snakemake);
 			hljs.highlightAll();
 		});
 	</script>
