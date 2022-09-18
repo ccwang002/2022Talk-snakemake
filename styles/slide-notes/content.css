@@ -1,4 +1,8 @@
-/* Content */
+/* Content
+ *
+ * See also
+ * - styles/slide/content/inline.css
+ */
 
 .slide-notes h2,
 .slide-notes h3,
@@ -6,9 +10,16 @@
     font-weight: 500;
 }
 
-.slide-notes code,
-.slide-notes kbd,
-.slide-notes samp {
-    font-family: 'Fira Code VF', monospace;
-    font-feature-settings: 'calt', 'ss01', 'ss03', 'ss05', 'ss08';
+.slide-notes pre {
+    margin-top: 0;
+    margin-bottom: 1em;
+    white-space: normal;
+}
+
+.slide-notes pre code {
+    display: block;
+    background-color: transparent;
+    line-height: 1.5;
+    white-space: pre;
+    tab-size: 4;
 }
