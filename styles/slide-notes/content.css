@@ -23,3 +23,21 @@
     white-space: pre;
     tab-size: 4;
 }
+
+.slide-notes details {
+    border: 2px solid var(--color-key);
+    border-radius: 5px;
+    padding: 0.5rem 1rem 0;
+}
+
+.slide-notes details > summary {
+    color: var(--color-key);
+    font-weight: bold;
+    cursor: pointer;
+    margin: -0.5rem -1rem 0;
+    padding: 0.5rem 1rem;
+}
+
+.slide-notes details[open] > summary {
+    border-bottom: 2px solid var(--color-key);
+}
