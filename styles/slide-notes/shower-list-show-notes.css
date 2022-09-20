@@ -26,7 +26,8 @@
             );
     }
 
-    .shower.list.show-notes .slide {
+    .shower.list.show-notes .slide,
+    .shower.list.show-notes .badge {
         grid-column: 1 / 2;
     }
 

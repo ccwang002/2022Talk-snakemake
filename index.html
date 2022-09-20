@@ -130,6 +130,25 @@
 		</style>
 	</section>
 
+	<section id="target-audience" class="slide">
+		<h2>This talk is for researchers who need to automate things in a handy way</h2>
+		<div class="two columns l67">
+			<ul>
+				<li>Some advices may not apply to a bioinformatics core lab, who develop pipelines as their main job</li>
+				<li class="next">This is <em>not</em> a complete Snakemake tutorial;<br>
+					please learn it properly from the <a href="https://snakemake.readthedocs.io/en/stable/tutorial/tutorial.html">official tutorial</a></li>
+				<li class="next">Share my experience of Snakemake and how to best utilize it</li>
+			</ul>
+			<figure>
+				<img
+					class="fill w"
+					src="pictures/beesy_researcher_DALL·E.png"
+					alt="DALL·E generated art using the prompt 'a hard-working bee working on multiple tasks, digital illustration'">
+				<figcaption class="citation right">A bee-sy dry-lab researcher</figcaption>
+			</figure>
+		</div>
+	</section>
+
 	<section id="scenarios" class="slide tight">
 		<h2>My top needs for a pipeline/workflow</h2>
 		<div class="two columns">
@@ -409,7 +428,7 @@ def find_bam_path(wildcards):
 					<li>Flexible rules by custom Python functions</li>
 					<li>Package management (conda),  containerization (docker), and tool wrappers</li>
 					<li>Temporary and piped outputs</li>
-					<li>Many more features and constantly increasing</li>
+					<li>Many more features and new features are <a href="https://snakemake.readthedocs.io/en/stable/project_info/history.html">constantly being introduced</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -417,10 +436,66 @@ def find_bam_path(wildcards):
 
 	<section id="things-i-dont-like" class="slide tight">
 		<h2>Things I don't like about Snakemake</h2>
+		<ul>
+			<li>Running large number of jobs (> 100k) can be slow/fragile</li>
+			<li>Flexible features can be a double-edged sword; not the most robust
+				<ul>
+					<li>Unique combinations of features can trigger weird bugs or crash the runtime</li>
+					<li>Though bugs are usually fixed eventually, it may take up too much of the development time for a researcher</li>
+				</ul>
+			</li>
+			<li>Large setup & runtime overhead to run on cloud
+				<ul>
+					<li>All files need to be tracked (e.g., inputs, outputs, and references)</li>
+					<li>Overhead in downloading/uploading files and setting up the environment</li>
+					<li>No one simple workflow for all setups; require optimization</li>
+				</ul>
+			</li>
+		</ul>
 	</section>
 
-	<section id="best-practices" class="slide">
-		<h2>My best practices</h2>
+	<section id="best-practices-for-data-processing" class="slide tight">
+		<img
+			class="illustration place top right"
+			src="pictures/scenario-data-processing_DALL·E.png"
+			alt="Illustration of the scenario of a reproducible analysis workflow. DALL·E generated art.">
+		<h2>My best practices for data processing</h2>
+		<ul>
+			<li>Run samples in batches; use config file</li>
+			<li>Use file checksums to track upstream sources and outputs</li>
+			<li>A big fat Docker/conda environment to contain all dependencies*</li>
+			<li>Do I really need a "pipeline"? (run for 10+ times) <br>
+				Good-old bash scripts plus <a href="https://www.gnu.org/software/parallel/sphinx.html">GNU Parallel</a> may be sufficient or more worth the time
+			</li>
+			<li>Running on cloud will be difficult than local/HPC unless there is a team maintaining the cloud infrastructure</li>
+		</ul>
+		<style>
+			#best-practices-for-data-processing .illustration {
+				width: 10rem;
+			}
+		</style>
+	</section>
+
+	<section id="best-practices-for-reproducible-analysis" class="slide tight">
+		<img
+			class="illustration place top right"
+			src="pictures/secnario-reproducible-analysis_DALL·E.png"
+			alt="Illustration of the scenario of a reproducible analysis workflow. DALL·E generated art.">
+		<h2>My best practices for reproducible analysis</h2>
+		<ul>
+			<li>Start out with individual reproducible scripts (e.g., Rmarkdown, Jupyter Notebook)</li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<style>
+			#best-practices-for-reproducible-analysis h2 {
+				font-size: 42px;
+			}
+			#best-practices-for-reproducible-analysis .illustration {
+				width: 10rem;
+			}
+		</style>
 	</section>
 
 	<section id="date-eng-vs-bioinfo" class="slide">

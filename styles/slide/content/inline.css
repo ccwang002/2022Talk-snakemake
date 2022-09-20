@@ -1,6 +1,6 @@
 /* Inline */
 
-.slide a {
+:is(.slide, .slide-notes) a {
     background-image:
         linear-gradient(
             to top,
@@ -12,38 +12,38 @@
     text-decoration: none;
 }
 
-.slide code,
-.slide kbd,
-.slide mark,
-.slide samp {
+:is(.slide, .slide-notes) code,
+:is(.slide, .slide-notes) kbd,
+:is(.slide, .slide-notes) mark,
+:is(.slide, .slide-notes) samp {
     padding: 0.1em 0.3em;
 }
 
-.slide code,
-.slide kbd,
-.slide samp {
+:is(.slide, .slide-notes) code,
+:is(.slide, .slide-notes) kbd,
+:is(.slide, .slide-notes) samp {
     background-color: var(--color-back);
     line-height: 1;
     font-family: 'Fira Code VF', monospace;
     font-feature-settings: 'calt', 'ss01', 'ss03', 'ss05', 'ss08';
 }
 
-.slide mark {
+:is(.slide, .slide-notes) mark {
     background-color: var(--color-yellow);
 }
 
-.slide sub,
-.slide sup {
+:is(.slide, .slide-notes) sub,
+:is(.slide, .slide-notes) sup {
     position: relative;
     vertical-align: baseline;
     line-height: 0;
     font-size: 75%;
 }
 
-.slide sub {
+:is(.slide, .slide-notes) sub {
     bottom: -0.25em;
 }
 
-.slide sup {
+:is(.slide, .slide-notes) sup {
     top: -0.5em;
 }
