@@ -121,7 +121,6 @@
 			#usage-instr a[rel="license"] img {
 				height: 1em;
 				color: var(--color-white);
-				/* vertical-align: baseline; */
 			}
 			#usage-instr kbd {
 				color: var(--color-black);
@@ -231,7 +230,6 @@
 	</section>
 
 	<section id="scenario-comparison" class="slide tight">
-		<!-- <h2>Comparison of the scenarios</h2> -->
 		<table>
 			<thead>
 				<tr>
@@ -278,7 +276,6 @@
 		<style>
 			#scenario-comparison img {
 				height: 7em;
-				/* float: left; */
 			}
 		</style>
 	</section>
@@ -543,10 +540,8 @@ def find_bam_path(wildcards):
 
 	<script src="lib/shower/shower.js"></script>
 	<script defer src="lib/highlightjs/highlight.min.js"></script>
-	<script defer src="lib/highlightjs/languages/shell.min.js"></script>
-	<script type="module">
-		import snakemake from "./scripts/highlightjs-snakemake.js"
-
+	<script defer src="js/highlightjs-snakemake.js"></script>
+	<script>
 		document.addEventListener('DOMContentLoaded', (event) => {
 			// Display or hide the slide notes
 			const body = document.querySelector('body');
