@@ -27,7 +27,7 @@ find bundled/lib/highlightjs/styles \
 
 # Copy theme related files
 rsync -a \
-    styles fonts fonts pictures \
+    js styles fonts pictures \
     .gitattributes .gitignore \
     .editorconfig .stylelintrc \
     LICENSE.md LICENSE.shower_material.md README.md \
