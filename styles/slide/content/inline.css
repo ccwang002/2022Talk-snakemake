@@ -12,6 +12,16 @@
     text-decoration: none;
 }
 
+:is(.slide, .slide-notes) abbr {
+    font-variant-caps: all-small-caps;
+}
+
+:is(.slide, .slide-notes) abbr[title] {
+    text-decoration-style: dotted;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 0.05em;
+}
+
 :is(.slide, .slide-notes) code,
 :is(.slide, .slide-notes) kbd,
 :is(.slide, .slide-notes) mark,

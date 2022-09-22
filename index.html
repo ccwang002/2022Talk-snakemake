@@ -415,17 +415,19 @@ def find_bam_path(wildcards):
 		<ul>
 			<li>Separate the definition and execution of tasks
 				<ul>
-					<li>Tasks are modular and reusable</li>
-					<li>Maximally utilize the resources (CPUs and memory)</li>
-					<li>Integrate with external job scheduler (e.g., HPC and Kubernetes)</li>
+					<li>Maximally utilize the available computing resources (CPUs and memory)</li>
+					<li>Smart re-run on only the incomplete tasks (for iterative development)</li>
+					<li>Integration with external job schedulers (e.g., HPC and Kubernetes)</li>
 				</ul>
 			</li>
 			<li class="next">Powerful features that are easy to use
 				<ul>
 					<li>Flexible rules by custom Python functions</li>
-					<li>Package management (conda),  containerization (docker), and tool wrappers</li>
 					<li>Temporary and piped outputs</li>
-					<li>Many more features and new features are <a href="https://snakemake.readthedocs.io/en/stable/project_info/history.html">constantly being introduced</a></li>
+					<li>Package management (conda),
+						containerization (docker),
+						and tool wrappers</li>
+					<li>New features are <a href="https://snakemake.readthedocs.io/en/stable/project_info/history.html">constantly being introduced</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -480,10 +482,17 @@ def find_bam_path(wildcards):
 			alt="Illustration of the scenario of a reproducible analysis workflow. DALL·E generated art.">
 		<h2>My best practices for reproducible analysis</h2>
 		<ul>
-			<li>Start out with individual reproducible scripts (e.g., Rmarkdown, Jupyter Notebook)</li>
-			<li></li>
-			<li></li>
-			<li></li>
+			<li>Start with making the independent reproducible scripts<br>
+				(e.g., R Markdown/Jupyter notebooks)</li>
+			<li>Construct the workflow in stages:
+				<ol>
+					<li>Make a data freeze with change log and checksums</li>
+					<li>Run the analyses and number them (e.g. <code>09_xxx.Rmd</code>)</li>
+					<li>Generate figures/tables/number for publication</li>
+				</ol>
+			</li>
+			<li>Regularly test the workflow</li>
+			<li>Work on the workflow later when the project is in shape (refactoring takes time)</li>
 		</ul>
 		<style>
 			#best-practices-for-reproducible-analysis h2 {
@@ -493,6 +502,34 @@ def find_bam_path(wildcards):
 				width: 10rem;
 			}
 		</style>
+	</section>
+
+	<section id="comparison-with-cwl-wdl-nextflow" class="slide tight">
+		<h2>Snakemake vs <abbr title="Common Workflow Language">CWL</abbr>/<abbr title="Workflow Description Language">WDL</abbr> (and Nextflow)</h2>
+		<p><a href="https://www.commonwl.org/">CWL</a>, <a href="https://openwdl.org/">WDL</a>, and <a href="https://www.nextflow.io/">Nextflow</a> ...</p>
+		<ul>
+			<li>Based on an explicit and forward task dependency (push-based <abbr title="Directed Acyclic Graph">DAG</abbr>)</li>
+			<li>Generate <strong>unique IDs per workflow run</strong>; useful for large scale processing, monitoring, and integration with <abbr title="Laboratory Information Management System">LIMS</abbr></li>
+			<li><strong>Cloud friendly</strong>; support diverse backends</li>
+			<li>Robust, but less flexible and more tedious to write</li>
+			<li>Ideal for a core lab and a workflow that will run for 100+ times</li>
+			<li>Not very useful for reproducing analyses/figures</li>
+		</ul>
+		<style>
+			#comparison-with-cwl-wdl-nextflow h2 {
+				font-size: 42px;
+			}
+		</style>
+	</section>
+
+	<section id="when-to-use-snakemake" class="slide">
+		<h2>When to use Snakemake or others?</h2>
+		<ul>
+			<li>If you already know Python, new to workflow, or don't develop pipelines for a living, pick Snakemake.</li>
+			<li>For prototyping and managing your research results, also pick Snakemake</li>
+			<li>For pipelines that are critical or run on cloud, pick others</li>
+		</ul>
+		<p>CWL/WDL is the most popular approach in my community (used by <a href="https://github.com/NCI-GDC/gdc-workflow-overview">NCI GDC</a>, <a href="https://terra.bio/">Terra</a>, and my institution), while Nextflow has a strong community promoting it and maintains a collection of <a href="https://nf-co.re/">ready-to-use workflows</a>.</p>
 	</section>
 
 	<section id="date-eng-vs-bioinfo" class="slide">
@@ -520,9 +557,8 @@ def find_bam_path(wildcards):
 		</style>
 	</section>
 
-	<section class="slide">
-		<blockquote>
-			<p>Why are bioinformatics pipelines different than workflows in data engineering? My thoughts on the ecosystem of workflow managers, and where the field might be headed: <a href="https://www.bsiranosian.com/bioinformatics/why-are-bioinformatics-workflows-different/">https://bsiranosian.com/bioinformatics…</a></p>&mdash; Ben Siranosian, PhD (@BenSiranosian) <a href="https://twitter.com/BenSiranosian/status/1558631901346164736">August 14, 2022</a></blockquote>
+	<section id="summary" class="slide">
+		<h2>Summary</h2>
 	</section>
 
 	<div class="progress"></div>

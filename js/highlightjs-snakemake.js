@@ -7,7 +7,7 @@ Category: common
 Modified based on https://github.com/snakemake/snakemake/blob/main/misc/vim/syntax/snakemake.vim
 and https://github.com/highlightjs/highlight.js/blob/main/src/languages/python.js
 */
-var snakemake = function(hljs) {
+function snakemake(hljs) {
     const regex = hljs.regex;
     const IDENT_RE = /[\p{XID_Start}_]\p{XID_Continue}*/u;
     const RESERVED_WORDS = [
@@ -487,5 +487,4 @@ var snakemake = function(hljs) {
         }
       ]
     };
-};
-
+}
