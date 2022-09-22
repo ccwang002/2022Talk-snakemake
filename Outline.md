@@ -45,4 +45,19 @@ Snakemake 是一個靈活易用的workflow engine，用來建立一個可再現�
         - If it only needs to run for less than 10 times, a good-o-fashion dumb parallel and some bash scripts is all we need
     - Unless there is a team maintaining the cloud infrastructure, running pipelines on the cloud is not trivial and generally more expensive
 
-- Comparison to other workflow management tools (CWL, Nextflow)
+- Comparison to other workflow management tools (CWL/WDL, Nextflow)
+    - CWL/WDL and Nextflow have unique run ids (useful for large scale processing, easier integration with LIMS)
+    - Cloud friendly
+    - DAG is explicit
+    - Not a great investment unless the workflow is run for 100+ times
+    - Obviously not great for organizing the analysis
+    - More suitable for a core lab
+
+- vs Airflow
+    - Not HPC friendly
+    - File management
+    - Requires an infrastructure to mantain the Airflow engine
+    - https://mamarcus64.medium.com/comparing-nextflow-and-airflow-for-scientific-workflows-b54768c0bdf6
+
+- Summary of Snakemake
+    - Great for prototyping and small to mid scale of pipeline
