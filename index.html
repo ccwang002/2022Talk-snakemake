@@ -281,7 +281,28 @@
 	</section>
 
 	<section id="about-me" class="slide">
-		<h2>About me</h2>
+		<h2>I'm Liang-Bo Wang</h2>
+		<div class="two columns r33">
+			<ul>
+				<li>PhD in Computational and Systems Biology<br>
+					from Washington University in St. Louis</li>
+				<li>My thesis focuses on cancer genomics</li>
+				<li>Worked in related consortia including
+					<a href="https://proteomics.cancer.gov/programs/cptac">CPTAC</a>,
+					<a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga">TCGA</a>,
+					and <a href="https://humantumoratlas.org/">HTAN</a></li>
+				<li>Common tasks as a researcher: prototyping new tools/pipelines, data wrangling, and analyses</li>
+			</ul>
+		</div>
+		<img
+			class="fill h place r"
+			src="pictures/my_protrait.jpg"
+			alt="My protrait">
+		<style>
+			#about-me abbr {
+				font-variant-caps: normal;
+			}
+		</style>
 	</section>
 
 	<section id="what-is-snakemake" class="slide">
@@ -504,7 +525,7 @@ def find_bam_path(wildcards):
 		</style>
 	</section>
 
-	<section id="comparison-with-cwl-wdl-nextflow" class="slide tight">
+	<section id="snakemake-vs-cwl-nextflow" class="slide tight">
 		<h2>Snakemake vs <abbr title="Common Workflow Language">CWL</abbr>/<abbr title="Workflow Description Language">WDL</abbr> (and Nextflow)</h2>
 		<p><a href="https://www.commonwl.org/">CWL</a>, <a href="https://openwdl.org/">WDL</a>, and <a href="https://www.nextflow.io/">Nextflow</a> ...</p>
 		<ul>
@@ -516,7 +537,7 @@ def find_bam_path(wildcards):
 			<li>Not very useful for reproducing analyses/figures</li>
 		</ul>
 		<style>
-			#comparison-with-cwl-wdl-nextflow h2 {
+			#snakemake-vs-cwl-nextflow h2 {
 				font-size: 42px;
 			}
 		</style>
@@ -532,7 +553,7 @@ def find_bam_path(wildcards):
 		<p>CWL/WDL is the most popular approach in my community (used by <a href="https://github.com/NCI-GDC/gdc-workflow-overview">NCI GDC</a>, <a href="https://terra.bio/">Terra</a>, and my institution), while Nextflow has a strong community promoting it and maintains a collection of <a href="https://nf-co.re/">ready-to-use workflows</a>.</p>
 	</section>
 
-	<section id="date-eng-vs-bioinfo" class="slide">
+	<section id="snakemake-vs-airflow" class="slide">
 		<h2>Workflow engine choices</h2>
 		<div class="columns two">
 			<div>
@@ -540,7 +561,9 @@ def find_bam_path(wildcards):
 			</div>
 			<div>
 				<figure>
-					<img src="pictures/BenSiranosian-tweet.png" alt="Tweet screenshot by @BenSiranosian">
+					<img class="fill w"
+						src="pictures/BenSiranosian-tweet.png"
+						alt="Tweet screenshot by @BenSiranosian">
 					<figcaption class="citation">
 						From <a href="https://twitter.com/BenSiranosian/status/1558631901346164736">@BenSiranosian's tweet</a> and <a href="https://www.bsiranosian.com/bioinformatics/why-are-bioinformatics-workflows-different/">his blog post</a>.
 					</figcaption>
