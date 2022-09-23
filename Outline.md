@@ -48,12 +48,15 @@
     - Not a great investment unless the workflow is run for 100+ times
     - Obviously not great for organizing the analysis
     - More suitable for a core lab
+    - CWL separates the definition and execution of the workflow
 
 - vs Airflow
     - Not HPC friendly
     - File management
     - Requires an infrastructure to mantain the Airflow engine
     - https://mamarcus64.medium.com/comparing-nextflow-and-airflow-for-scientific-workflows-b54768c0bdf6
+    - Mention https://academic.oup.com/gigascience/article/8/7/giz084/5535758
+    - See also https://twitter.com/bernhardsson/status/1509220914604482566
 
 - Summary of Snakemake
     - Great for prototyping and small to mid scale of pipeline

@@ -534,7 +534,7 @@ def find_bam_path(wildcards):
 			<li>Generate <strong>unique IDs per workflow run</strong>; useful for large scale processing, monitoring, and integration with <abbr title="Laboratory Information Management System">LIMS</abbr></li>
 			<li><strong>Cloud friendly</strong>; support diverse backends</li>
 			<li>Robust, but less flexible and more tedious to write</li>
-			<li>Ideal for a core lab and a workflow that will run for 100+ times</li>
+			<li><strong>Ideal for a core lab</strong> and a workflow that will run for 100+ times</li>
 			<li>Not very useful for reproducing analyses/figures</li>
 		</ul>
 		<style>
@@ -544,32 +544,22 @@ def find_bam_path(wildcards):
 		</style>
 	</section>
 
-	<section id="when-to-use-snakemake" class="slide">
-		<h2>When to use Snakemake or others?</h2>
-		<ul>
-			<li>If you already know Python, new to workflow, or don't develop pipelines for a living, pick Snakemake.</li>
-			<li>For prototyping and managing your research results, also pick Snakemake</li>
-			<li>For pipelines that are critical or run on cloud, pick others</li>
-		</ul>
-		<p>CWL/WDL is the most popular approach in my community (used by <a href="https://github.com/NCI-GDC/gdc-workflow-overview">NCI GDC</a>, <a href="https://terra.bio/">Terra</a>, and my institution), while Nextflow has a strong community promoting it and maintains a collection of <a href="https://nf-co.re/">ready-to-use workflows</a>.</p>
-	</section>
-
 	<section id="snakemake-vs-airflow" class="slide">
-		<h2>Workflow engine choices</h2>
+		<h2>Did someone mention Airflow?</h2>
 		<div class="columns two">
-			<div>
-
-			</div>
-			<div>
-				<figure>
-					<img class="fill w"
-						src="pictures/BenSiranosian-tweet.png"
-						alt="Tweet screenshot by @BenSiranosian">
-					<figcaption class="citation">
-						From <a href="https://twitter.com/BenSiranosian/status/1558631901346164736">@BenSiranosian's tweet</a> and <a href="https://www.bsiranosian.com/bioinformatics/why-are-bioinformatics-workflows-different/">his blog post</a>.
-					</figcaption>
-				</figure>
-			</div>
+			<ul>
+				<li>Very few use <a href="https://airflow.apache.org/">Airflow</a> in the field</li>
+				<li>Strength: great workflow monitoring ability; widely used by the big techs</li>
+				<li>Weakness: hard to set up locally and iterate the dev; supporting infra (and DevOps) required; not HPC friendly; lack network effect</li>
+			</ul>
+			<figure>
+				<img class="fill w"
+					src="pictures/BenSiranosian-tweet.png"
+					alt="Tweet screenshot by @BenSiranosian">
+				<figcaption class="citation">
+					From <a href="https://twitter.com/BenSiranosian/status/1558631901346164736">@BenSiranosian's tweet</a> and <a href="https://www.bsiranosian.com/bioinformatics/why-are-bioinformatics-workflows-different/">his blog post</a>.
+				</figcaption>
+			</figure>
 		</div>
 		<style>
 			#date-eng-vs-bioinfo figure {
@@ -579,6 +569,20 @@ def find_bam_path(wildcards):
 				width: 100%;
 			}
 		</style>
+	</section>
+
+	<section id="when-to-use-snakemake" class="slide tight">
+		<h2>When to use Snakemake or others?</h2>
+		<ul>
+			<li>If you already know Python, are new to workflow, or don't develop pipelines for a living, pick Snakemake.</li>
+			<li>To make your research results reproducible, also pick Snakemake</li>
+			<li>For pipelines that solely run on cloud, run at a large scale constantly, or require monitoring, pick other solutions:
+				<ul>
+					<li>CWL/WDL is the most popular approach in my community, which is used by <a href="https://github.com/NCI-GDC/gdc-workflow-overview">NCI GDC</a>, <a href="https://terra.bio/">Terra</a>, and my lab/institution. Highly modular and portable</li>
+					<li>Nextflow has a strong community promoting and contributing to it. It also maintains a collection of <a href="https://nf-co.re/">off-the-shelf workflows</a></li>
+				</ul>
+			</li>
+		</ul>
 	</section>
 
 	<section id="summary" class="slide">
