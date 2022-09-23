@@ -50,6 +50,8 @@
     - More suitable for a core lab
     - CWL separates the definition and execution of the workflow
 
+    - https://cacm.acm.org/magazines/2022/6/261172-methods-included/fulltext
+
 - vs Airflow
     - Not HPC friendly
     - File management

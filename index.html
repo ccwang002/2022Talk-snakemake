@@ -53,7 +53,7 @@
 
 	<!-- Cover Slide -->
 	<section id="cover" class="slide clear black">
-		<h2 id="talk-header">Snakemake—simple data processing for researchers</h2>
+		<h2 id="talk-header">Snakemake—simple data processing<br>for researchers</h2>
 		<p id="talk-info">
 			Liang-Bo Wang<br>
 			Taipei Bioinformatics Omnibus<br>
@@ -87,11 +87,11 @@
 				font-size: 3rem;
 				font-weight: 600;
 				line-height: 1.25;
-				top: 8rem;
+				top: 6rem;
 				/* CSS Gradient https://cssgradient.io/ */
 				background-image: linear-gradient(
 					to right,
-					#9b582f5a 0%,
+					#9b582f8f 0%,
 					#4f453c8e 100%
 				);
 				left: 0;
@@ -587,6 +587,19 @@ def find_bam_path(wildcards):
 
 	<section id="summary" class="slide">
 		<h2>Summary</h2>
+		<div class="two columns r40">
+			<ul>
+				<li>Snakemake is an easy-to-learn and versatile workflow management tool, suitable for researchers prototyping and analyses</li>
+				<li>Snakemake works by file pattern based rules and backward task dependency</li>
+				<li>Best practices: bundle deps by conda/Docker, run in batches and stages, use checksums</li>
+			</ul>
+			<figure>
+				<img class="fill w"
+					src="pictures/snakes_and_pipes_DALL·E.png"
+					alt="DALL·E generated art using the prompt 'gray concrete wall and floor, multiple colorful anacondas in pipe-like shape in parallel and interconnected, wide shot, 24mm, 4k, photo realistic, golden hour'">
+				<figcaption class="citation right">Snakemake can be your great buddy of data processing and reproducible analysis</figcaption>
+			</figure>
+		</div>
 	</section>
 
 	<div class="progress"></div>

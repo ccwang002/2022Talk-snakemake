@@ -5,6 +5,7 @@ Geun
 highlightjs
 HTAN
 Liang
+LIMS
 myrule
 Proteomic
 Siranosian
