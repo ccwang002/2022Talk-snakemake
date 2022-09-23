@@ -1,6 +1,7 @@
 CPTAC
 DALL
 FPKM
+GDC
 Geun
 highlightjs
 HTAN
