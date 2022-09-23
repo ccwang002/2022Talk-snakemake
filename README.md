@@ -29,9 +29,10 @@ To publish the bundled presentation to GitHub Pages, run:
     npm run publish     # Push the bundle to GitHub Pages
 
 This repo also sets up the GitHub workflow that will automatically bundle and publish the presentations on every git push.
+The workflow produces a bundled presentation as a compressed file `slides.zip`.
 
-The bundled presentation, available as a compressed zip file of the workflow output, is a standalone webpage that can be view offline.
-Simply open the file `index.html` in a web browser to see the presentation and notes.
+The bundled presentation contains a standalone webpage that can be viewed offline.
+Simply open the file `index.html` in a web browser to start the presentation and view the notes.
 
 
 ## License
