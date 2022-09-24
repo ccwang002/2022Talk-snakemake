@@ -153,13 +153,11 @@
 		<h3>How to learn Snakemake from scratch using official materials?</h3>
 		<ol>
 			<li>Go through the official tutorial and best practices</li>
-			<li>Implement your own pipeline or use an existing one</li>
+			<li>You are probably ready to implement your own pipeline</li>
 			<li>If you need to run Snakemake on HPC or a cloud, go through the executor tutorial and the documentation about the cluster/cloud execution</li>
+			<li>Check out the rest of the documentation once you get a better understanding of Snakemake</li>
+			<li>Keep an eye on Snakemake's changelog for new features</li>
 		</ol>
-		<p>
-			Once you get a better understanding of Snakemake, also check out other sections of the documentation.
-			Keep an eye on Snakemake's changelog for new features.
-		</p>
 	</section>
 
 	<section id="about-me" class="slide">
@@ -389,13 +387,23 @@
 	</section>
 
 	<section class="slide-notes">
-		<p>Two RNA-seq pipelines are lossly based on <abbr title="NCI Genomic Data Commons">GDC</abbr>'s RNA-seq pipeline</p>
+		<p>I implemented two RNA-seq pipelines in Snakemake that are lossly based on <abbr title="NCI Genomic Data Commons">GDC</abbr>'s <a href="https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/Expression_mRNA_Pipeline/">mRNA analysis pipeline</a>:</p>
 		<ul>
 			<li><a href="https://github.com/ding-lab/cptac_rna_expression">https://github.com/ding-lab/cptac_rna_expression</a> that starts from GDC aligned BAMs</li>
 			<li><a href="https://github.com/ding-lab/HTAN_bulkRNA_expression">https://github.com/ding-lab/HTAN_bulkRNA_expression</a> that starts from FASTQs</li>
 		</ul>
-		<p>The pipeline can be better by adopting the community best practices (modular, workflow root, use pandas). This was implemented a while ago. I tried to use minimal features and very few dependency (only using Python standard library). With a ubiquitous conda support, one can certainly improve this pipeline.</p>
-	</section>
+		<p>
+			These pipelines were developed a while ago, when some of my computing environments were quite old and limited.
+			So I took a relative conservative approach by using minimal features and very few dependencies (just the Python standard library).
+			These pipelines can certainly be improved to better conform to the community's best practices.
+			With the ubiquitous conda and Docker support and new Snakemake features, some possible improvements include:
+		</p>
+		<ul>
+			<li>Replace <code>{WORKFLOW_ROOT}</code> with <code>workflow.source_path()</code></li>
+			<li>Use pandas to process data frames</li>
+			<li>Modularization, though my pipelines are very short (less than 300 lines)</li>
+		</ul>
+		</section>
 
 	<section id="example-rule" class="slide tight">
 		<pre class="language-snakemake">
@@ -431,33 +439,63 @@
 
 	<section id="example-notes" class="slide-notes">
 		<p>
-			<a href="https://en.wikipedia.org/wiki/Make_(software)#Makefile">Makefile</a>-like
+			If you have wrote a <a href="https://en.wikipedia.org/wiki/Make_(software)#Makefile">Makefile</a> before, snakemake rules share the same spirit as a Makefile's rule.
+			And they run in a similar way.
 		</p>
-		<h2>Snakemake syntax explained</h2>
+		<h3>Snakemake syntax explained</h3>
 		<dl>
 			<dt><code>{sample}</code></dt>
 			<dd>
-				Known as <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#wildcards">wildcards</a> that matches the possible existing files.
+				Known as <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#wildcards">wildcards</a> that matches the output file pattern with the existing files.
 			</dd>
 			<dt><code>input:</code>, <code>output:</code></dt>
 			<dd>File patterns for inputs and outputs. Use key-value pairs <code><strong>key</strong>='...'</code> when there are multiple patterns. They are just Python strings and thus can be referred elsewhere by <code>rules.<strong>myrule</strong>.output.<strong>key</strong></code>.</dd>
-			<dt></dt>
-			<dd></dd>
+			<dt><code>shell:</code></dt>
+			<dd>The command that will run in a bash shell to generate the desired outputs.</dd>
 		</dl>
-		<p>Due to the way snakemake executes, it's easier to resolve the output first by realizing all the wildcard variables. Then expands the rest of the rule (inputs, parameters, and etc.)</p>
-
-		<p>For example, if there is a output <code>stranded_readcount/<mark>my_sample_a</mark>.tsv</code>, <code>{sample}</code> expands to <code>my_sample_a</code> in all occurrences. So snakemake will look for the corresponding inputs and generate the corresponding shell commands:</p>
+		<p>Check out the <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html">documentation</a> for the rest parts of the rule.</p>
+		<h3>How snakemake creates a task</h3>
+		<p>
+			Due to the way snakemake executes, it's easier to resolve the output first by realizing all the wildcard variables.
+			Then expand the rest of the rule (inputs, parameters, and etc.)
+		</p>
+		<p>
+			For example, to generate <code>stranded_readcount/<mark>my_sample_a</mark>.tsv</code> using this task, <code>{sample}</code> expands to <code>my_sample_a</code> in the rest parts of the rule.
+			So Snakemake will look for the corresponding inputs and run the following shell commands:
+		</p>
 		<pre class="language-shell">
 <code>featureCounts -T 16 -a /path/to/genes.gtf \
 	-o stranded_readcount/my_sample_a.tsv \
 	inputs/my_sample_a.bam \
-	2> logs/stranded_readcount/my_sample_a.log</code></pre>
-		<p>To make the pipeline more extensible, use <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html">a config file</a> and a run-all rule to process all samples of a batch.</p>
-		<p>Mention dry run mode too</p>
+	2> logs/stranded_readcount/my_sample_a.log</code>
+		</pre>
 
+		<h3>Process multiple samples using <code>snakemake all</code></h3>
+		<p>
+			To make the pipeline more extensible, use a run-all rule and <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html">a config file</a> to process all samples of a batch.
+			As shown here, we obtain the list of samples to process from config file by
+			reading in the list from the file at <code>config['sample_list']</code>.
+			In this case, <code>SAMPLES</code> is a Python list of <code>["my_sample_a", "my_sample_b", ..., "my_sample_d"]</code>.
+			In the <code>all</code> rule, we use a Snakemake function <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#the-expand-function"><code>expand()</code></a> to generates all the output targets by "filling in" the wildcards of the output pattern using every value of <code>SAMPLES</code>.
+		</p>
+
+		<h3>Other commonly used features</h3>
+		<p>
+			When the simple string pattern matching is not enough, Snakemake also allows many parts of the rule to be determined by Python functions, including <code>input</code>, <code>params</code>, and <code>resources</code>.
+			These functions are known as <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#input-functions-and-unpack">input functions</a> in Snakemake's documentation.
+			They make the rule more flexible.
+			As shown here, different samples may have their input files at different locations.
+			The same task will ask for more memory if it has been failed before.
+		</p>
+		<p>
+			<a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#input-functions-and-unpack"><code>unpack()</code></a> is a helper function to automatically unpack the return value of the input function.
+			So a function can return multiple key-value pairs.
+		<p>
+			<code>file_map_df</code> is a pandas DataFrame object loaded from the tabular file specified by the config (<code>config["file_map"]</code>).
+		</p>
 		<style>
 			#example-notes {
-				grid-row-end: span 2;
+				grid-row-end: span 3;
 			}
 		</style>
 	</section>
@@ -504,12 +542,6 @@ def find_bam_path(wildcards):
 		</style>
 	</section>
 
-	<section class="slide-notes">
-		<p>unpack</p>
-		<p>Specify inputs/parameters/resources from a function</p>
-		<p>Pandas dataframe</p>
-	</section>
-
 	<section id="things-i-like" class="slide tight">
 		<h2>Things I like about Snakemake</h2>
 		<ul>
@@ -531,6 +563,10 @@ def find_bam_path(wildcards):
 				</ul>
 			</li>
 		</ul>
+	</section>
+
+	<section class="slide-notes">
+		<p>I want to mention the dry run mode is very useful too (<code>snakemake -n</code>).</p>
 	</section>
 
 	<section id="things-i-dont-like" class="slide tight">
@@ -562,7 +598,7 @@ def find_bam_path(wildcards):
 		<ul>
 			<li>Process samples in batches; use config file</li>
 			<li>Use file checksums to track upstream sources and outputs</li>
-			<li>A big fat Docker/conda environment to contain all dependencies*</li>
+			<li>Start with a big fat Docker/conda environment that contains all dependencies*</li>
 			<li class="next">Do I really need a "pipeline"? Do I run for 10+ times? <br>
 				Good old bash scripts plus <a href="https://www.gnu.org/software/parallel/sphinx.html">GNU Parallel</a> may be sufficient or more worth the time
 			</li>
@@ -576,7 +612,21 @@ def find_bam_path(wildcards):
 	</section>
 
 	<section class="slide-notes">
-		A big fat Docker image conda environment
+		<h3>How to set up the conda environment or the Docker image?</h3>
+		<p>
+			I actually had better experience to simply put together all the dependencies in one big fat Docker image or conda environment.
+			This setup can live outside Snakemake, so it doesn't take care of pulling the docker image or creating the conda environment.
+			This comes with some advantages:
+		</p>
+		<ul>
+			<li>It's easier to debug and learn when one is new to Snakemake</li>
+			<li>If one creates a pipeline from scratch, it's likely you will first try out the steps in a conda environment anyway. Then one can re-use the environment</li>
+			<li>Some computing environments have very non-standard (broken) ways to use conda and Docker, which breaks Snakemake</li>
+		</ul>
+		<p>
+			However, this approach is against the best practice because it reduce the reusability of the rules and sometimes different rules have incompatible dependencies.
+			One should consider switching to a rule-based environments/images later on.
+		</p>
 	</section>
 
 	<section id="batch-and-config" class="slide tight">
@@ -650,20 +700,25 @@ sample_B,tsv,/path/to/readcount/sample_B.tsv,...</code>
 	</section>
 
 	<section class="slide-notes">
-		<ul>
-			<li>Separate the location of the pipeline and outputs</li>
-			<li>File map contains the local paths, checksums, and other metadata of the inputs</li>
-			<li>Config file specifies the variable parts of the pipline (input/reference paths, parameters)</li>
-			<li>Collect all outputs in a manifest</li>
-		</ul>
-		<p>Three columns (folder structure, config, snakemake command)</p>
-		<p>Show folder structure</p>
-		<p>Show CPTAC3 Catalog</p>
+		<h3>Advantages of using batch folders, config, file map, and output manifest</h3>
+		<p>
+			Batch folders make the pipeline source code and the outputs live in different locations.
+			Good for version tracking the pipeline and reusing the pipeline.
+			We can also create a template folder for new batches.
+			Config file is a natural solution to specify the batch-specific parameters.
+		</p>
+		<p>
+			Input file map is useful when the upstream files are tracked externally (say, in a database or some centralized system).
+			It also retains the file metadata (e.g. checksums, UUID, experiment details, and other cross-references).
+			For example, our lab maintains <a href="https://github.com/ding-lab/CPTAC3.catalog">a file catalog</a> to track all CPTAC data on GDC.
+			It also tracks the files we have downloaded to the different storage systems in our lab.
+			Thus, our example pipeline looks up this catalog to find the input BAM files.
+		</p>
 	</section>
 
 	<section id="checksum" class="slide">
 		<h2>Checksum for both inputs and outputs</h2>
-		<p>Not sure if the file is the same? Use my <a href="https://en.wikipedia.org/wiki/Checksum">checksum</a>!</p>
+		<p>Not sure if the file is the same? Verify its <a href="https://en.wikipedia.org/wiki/Checksum">checksum</a>!</p>
 		<ul>
 			<li>Detect if inputs have changed or corrupted</li>
 			<li>Ensure output file integrity</li>
@@ -673,6 +728,7 @@ sample_B,tsv,/path/to/readcount/sample_B.tsv,...</code>
 	</section>
 
 	<section class="slide-notes">
+		<h3>Advantages of using checksums everywhere</h3>
 		<p>There are quite a few possible reasons lead to a input change or corruption:</p>
 		<ul>
 			<li>With increasing data size, it's more likely to get rotten bits from failing storage</li>
