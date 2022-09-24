@@ -150,7 +150,16 @@
 	</section>
 
 	<section class="slide-notes">
-		<p>Other resources to learn Snakemake:</p>
+		<h3>How to learn Snakemake from scratch using official materials?</h3>
+		<ol>
+			<li>Go through the official tutorial and best practices</li>
+			<li>Implement your own pipeline or use an existing one</li>
+			<li>If you need to run Snakemake on HPC or a cloud, go through the executor tutorial and the documentation about the cluster/cloud execution</li>
+		</ol>
+		<p>
+			Once you get a better understanding of Snakemake, also check out other sections of the documentation.
+			Keep an eye on Snakemake's changelog for new features.
+		</p>
 	</section>
 
 	<section id="about-me" class="slide">
@@ -212,9 +221,9 @@
 		<h2>Scenario 1: A pipeline to process multiple samples on different computing platforms</h2>
 		<div class="two columns l67">
 			<ul>
-				<li>Run in different environments: standalone server, HPC cluster, and cloud</li>
+				<li>Run in different environments: standalone server, <abbr title="High-Performance Computing">HPC</abbr> cluster, and cloud</li>
 				<li>HPC cluster has its own job queue and computing architecture (<a href="https://en.wikipedia.org/wiki/IBM_Spectrum_LSF">LSF</a> at my school)</li>
-				<li>We use public cloud services (Google Cloud and AWS) and we manage the usage ourselves</li>
+				<li>We use public cloud services (Google and Amazon cloud) and we manage the usage ourselves</li>
 			</ul>
 			<figure>
 				<img
@@ -228,10 +237,6 @@
 				margin-top: 0.5em;
 			}
 		</style>
-	</section>
-
-	<section class="slide-notes">
-		<h2>Scenario 1: Scalable data processing pipeline</h2>
 	</section>
 
 	<section id="scenario-reproducible-analysis" class="slide">
@@ -255,10 +260,6 @@
 				margin-top: 0.5em;
 			}
 		</style>
-	</section>
-
-	<section class="slide-notes">
-		<h2>Scenario 2: Reproducible data analysis workflow</h2>
 	</section>
 
 	<section id="scenario-comparison" class="slide tight">
@@ -312,6 +313,16 @@
 		</style>
 	</section>
 
+	<section class="slide-notes">
+		<p>
+			There are quite a few completely opposite properties about these two scenarios, which are listed in the table.
+		</p>
+		<p>
+			For the reproducible analysis scenario, the computing environment is known and limited only when we try to reproduce it on our own machines.
+			In my experience, having a clear and simple instructions is easier for other researchers to work with the analysis than say a fully automated and dockerized setup.
+		</p>
+	</section>
+
 	<section id="what-is-snakemake" class="slide">
 		<img src="pictures/snakemake_logo.svg" alt="Logo of Snakemake">
 		<h2>What is Snakemake?</h2>
@@ -326,7 +337,7 @@
 		<style>
 			#what-is-snakemake img {
 				float: right;
-				width: 4.5em;
+				width: 4em;
 			}
 		</style>
 	</section>
@@ -335,16 +346,16 @@
 		<h2>How Snakemake works in general</h2>
 		<figure>
 			<img src="pictures/example-dag.svg" alt="Example job dependency graph">
-			<figcaption class="citation">An example job<br>dependency graph</figcaption>
+			<figcaption class="citation">An example task<br>dependency graph</figcaption>
 		</figure>
 		<ol>
 			<li>Snakemake starts with the rule that generates the final outputs. <br>
 				<mark>Trace the workflow backwards</mark></li>
 			<li>If all the inputs of this rule exist, it's ready to run its commands<br>
-				(create a new job)</li>
-			<li>If some inputs do not exist, find other rules to generate the required input files (create a dependent job)</li>
-			<li>Repeat the process until all outputs can be generated from existing files (complete a job dependency graph)</li>
-			<li>Snakemake will start running the corresponding commands/jobs</li>
+				(create a new task)</li>
+			<li>If some inputs do not exist, find other rules to generate the required input files (create a dependent task)</li>
+			<li>Repeat the process until all outputs can be generated from existing files (complete a task dependency graph)</li>
+			<li>Snakemake will start running the corresponding commands/tasks</li>
 		</ol>
 		<style>
 			#how-snakemake-works figure {
@@ -355,26 +366,35 @@
 	</section>
 
 	<section class="slide-notes">
-		<p>pull-based (backward) task dependency DAG</p>
+		<p>
+			The task dependency graph has the property as a directed acyclic graph (DAG).
+			For Snakemake, such graph is constructed backwards from the final outputs, also known as the pull-based approach.
+		</p>
+		<p>
+			Reading the pipeline backwards can be a bit counterintuitive at first.
+			My tip is to always start with the final outputs (usually at the end of the file) and trace the workflow backwards.
+		</p>
 	</section>
 
 	<section id="snakemake-in-action" class="slide">
-		<h2>A RNA-seq pipeline in action</h2>
+		<h2>A simple RNA-seq pipeline in action</h2>
 		<p>Generate readcounts per gene from RNA-seq aligned BAMs</p>
 		<ol>
 			<li>Find the local path of the sample BAMs</li>
 			<li>Generate read counts (featureCounts)</li>
 			<li>Clean up and compress the outputs</li>
-			<li>Calculate FPKM, FPKM-UQ, and TPM values</li>
+			<li>Calculate FPKM and FPKM-UQ values</li>
 		</ol>
+		<p>The full pipeline is available <a href="https://github.com/ding-lab/cptac_rna_expression">here</a></p>
 	</section>
 
 	<section class="slide-notes">
-		<p>Two RNA-seq pipelines are lossly based on GDC's RNA-seq pipeline</p>
+		<p>Two RNA-seq pipelines are lossly based on <abbr title="NCI Genomic Data Commons">GDC</abbr>'s RNA-seq pipeline</p>
 		<ul>
 			<li><a href="https://github.com/ding-lab/cptac_rna_expression">https://github.com/ding-lab/cptac_rna_expression</a> that starts from GDC aligned BAMs</li>
 			<li><a href="https://github.com/ding-lab/HTAN_bulkRNA_expression">https://github.com/ding-lab/HTAN_bulkRNA_expression</a> that starts from FASTQs</li>
 		</ul>
+		<p>The pipeline can be better by adopting the community best practices (modular, workflow root, use pandas). This was implemented a while ago. I tried to use minimal features and very few dependency (only using Python standard library). With a ubiquitous conda support, one can certainly improve this pipeline.</p>
 	</section>
 
 	<section id="example-rule" class="slide tight">
@@ -433,6 +453,7 @@
 	inputs/my_sample_a.bam \
 	2> logs/stranded_readcount/my_sample_a.log</code></pre>
 		<p>To make the pipeline more extensible, use <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html">a config file</a> and a run-all rule to process all samples of a batch.</p>
+		<p>Mention dry run mode too</p>
 
 		<style>
 			#example-notes {
@@ -522,7 +543,7 @@ def find_bam_path(wildcards):
 					<li>Though bugs are usually fixed eventually, it may take up too much of the development time for a researcher</li>
 				</ul>
 			</li>
-			<li class="next">Large setup & runtime overhead to run on a cloud
+			<li class="next">Running on a cloud comes with large setup/runtime overhead
 				<ul>
 					<li>All files need to be tracked (e.g., inputs, outputs, and references)</li>
 					<li>Overhead in downloading/uploading files and setting up the environment</li>
@@ -552,6 +573,10 @@ def find_bam_path(wildcards):
 				width: 10rem;
 			}
 		</style>
+	</section>
+
+	<section class="slide-notes">
+		A big fat Docker image conda environment
 	</section>
 
 	<section id="batch-and-config" class="slide tight">
@@ -638,7 +663,7 @@ sample_B,tsv,/path/to/readcount/sample_B.tsv,...</code>
 
 	<section id="checksum" class="slide">
 		<h2>Checksum for both inputs and outputs</h2>
-		<p>Not sure if the file is the same? Use your <a href="https://en.wikipedia.org/wiki/Checksum">checksum</a>!</p>
+		<p>Not sure if the file is the same? Use my <a href="https://en.wikipedia.org/wiki/Checksum">checksum</a>!</p>
 		<ul>
 			<li>Detect if inputs have changed or corrupted</li>
 			<li>Ensure output file integrity</li>
@@ -765,7 +790,7 @@ md5sum -c MD5_CHECKSUMS</code>
 				<img class="fill w"
 					src="pictures/snakes_and_pipes_DALL·E.png"
 					alt="DALL·E generated art using the prompt 'gray concrete wall and floor, multiple colorful anacondas in pipe-like shape in parallel and interconnected, wide shot, 24mm, 4k, photo realistic, golden hour'">
-				<figcaption class="citation right">Snakemake can be your great buddy of data processing and reproducible analysis</figcaption>
+				<figcaption class="citation">Snakemake can be our great buddy of data processing pipelines and reproducible analysis workflows</figcaption>
 			</figure>
 		</div>
 	</section>
