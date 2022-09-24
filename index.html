@@ -76,8 +76,6 @@
 		</figure>
 		<style>
 			#talk-header, #talk-info {
-				left: var(--slide-left-side);
-				right: var(--slide-right-side);
 				text-align: center;
 				position: absolute;
 				color: var(--color-white);
@@ -99,6 +97,8 @@
 				padding: 1.25em calc(var(--slide-left-side) / 2);
 			}
 			#talk-info {
+				left: var(--slide-left-side);
+				right: var(--slide-right-side);
 				font-size: 1.5rem;
 				line-height: 1.5;
 				bottom: 4rem;
@@ -134,10 +134,10 @@
 		<h2>This talk is for researchers who need to automate things in a handy way</h2>
 		<div class="two columns l67">
 			<ul>
-				<li>Some advices may not apply to a bioinformatics core lab, who develop pipelines as their main job</li>
+				<li>Some advice may not apply to a bioinformatics core lab, who develop pipelines as their main job</li>
 				<li class="next">This is <em>not</em> a complete Snakemake tutorial;<br>
 					please learn it properly from the <a href="https://snakemake.readthedocs.io/en/stable/tutorial/tutorial.html">official tutorial</a></li>
-				<li class="next">Share my experience of Snakemake and how to best utilize it</li>
+				<li class="next">I will share my experience of Snakemake and how to best utilize it</li>
 			</ul>
 			<figure>
 				<img
@@ -147,6 +147,37 @@
 				<figcaption class="citation right">A bee-sy dry-lab researcher</figcaption>
 			</figure>
 		</div>
+	</section>
+
+	<section class="slide-notes">
+		<p>Other resources to learn Snakemake:</p>
+	</section>
+
+	<section id="about-me" class="slide">
+		<h2>About me</h2>
+		<div class="two columns r33">
+			<ul>
+				<li>PhD in Computational and Systems Biology<br>
+					from Washington University in St. Louis</li>
+				<li>My thesis focuses on cancer genomics</li>
+				<li>Worked in related consortia including
+					<a href="https://proteomics.cancer.gov/programs/cptac">CPTAC</a>,
+					<a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga">TCGA</a>,
+					and <a href="https://humantumoratlas.org/">HTAN</a>
+					with thousands of samples
+				</li>
+				<li>Common tasks as a researcher: prototyping new tools/pipelines, data wrangling, and analyses</li>
+			</ul>
+		</div>
+		<img
+			class="fill h place r"
+			src="pictures/my_protrait.jpg"
+			alt="My protrait">
+		<style>
+			#about-me abbr {
+				font-variant-caps: normal;
+			}
+		</style>
 	</section>
 
 	<section id="scenarios" class="slide tight">
@@ -181,7 +212,7 @@
 		<h2>Scenario 1: A pipeline to process multiple samples on different computing platforms</h2>
 		<div class="two columns l67">
 			<ul>
-				<li>Run at different environments: standalone server, HPC cluster, and cloud</li>
+				<li>Run in different environments: standalone server, HPC cluster, and cloud</li>
 				<li>HPC cluster has its own job queue and computing architecture (<a href="https://en.wikipedia.org/wiki/IBM_Spectrum_LSF">LSF</a> at my school)</li>
 				<li>We use public cloud services (Google Cloud and AWS) and we manage the usage ourselves</li>
 			</ul>
@@ -208,9 +239,9 @@
 		<div class="two columns l67">
 			<ul>
 				<li>Steps to build the dataset for downstream analysis</li>
-				<li>Figure generations in the manuscript</li>
-				<li>Update the results when the new data come in</li>
-				<li>Preferrably, others can easily set up the workflow and reproduce in an unknown environment</li>
+				<li>Figure generation in the manuscript</li>
+				<li>Update results when new data comes in</li>
+				<li>Preferably, others can easily set up the workflow and reproduce in an unknown environment</li>
 			</ul>
 			<figure>
 				<img
@@ -268,9 +299,9 @@
 				<tr>
 					<th scope="row">Computing environment</th>
 					<td>Known and multiple<br>
-						local, HPC, and cloud</td>
+						Local, HPC, and cloud</td>
 					<td>Known and limited*<br>
-						mostly local</td>
+						Mostly local</td>
 				</tr>
 			</tbody>
 		</table>
@@ -281,38 +312,13 @@
 		</style>
 	</section>
 
-	<section id="about-me" class="slide">
-		<h2>I'm Liang-Bo Wang</h2>
-		<div class="two columns r33">
-			<ul>
-				<li>PhD in Computational and Systems Biology<br>
-					from Washington University in St. Louis</li>
-				<li>My thesis focuses on cancer genomics</li>
-				<li>Worked in related consortia including
-					<a href="https://proteomics.cancer.gov/programs/cptac">CPTAC</a>,
-					<a href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga">TCGA</a>,
-					and <a href="https://humantumoratlas.org/">HTAN</a></li>
-				<li>Common tasks as a researcher: prototyping new tools/pipelines, data wrangling, and analyses</li>
-			</ul>
-		</div>
-		<img
-			class="fill h place r"
-			src="pictures/my_protrait.jpg"
-			alt="My protrait">
-		<style>
-			#about-me abbr {
-				font-variant-caps: normal;
-			}
-		</style>
-	</section>
-
 	<section id="what-is-snakemake" class="slide">
 		<img src="pictures/snakemake_logo.svg" alt="Logo of Snakemake">
 		<h2>What is Snakemake?</h2>
-		<p><a href="https://snakemake.github.io/">Snakemake</a> is a Python-based Makefile-like workflow management tool.<br>
-			A workflow contains a set of <strong>rules</strong>:</p>
+		<p><a href="https://snakemake.github.io/">Snakemake</a> is a Python-based workflow management tool.<br>
+			A Snakemake workflow contains a set of <strong>rules</strong>:</p>
 		<ul>
-			<li>A rule describes how to create output files/patterns from input files/pattern</li>
+			<li>A rule describes how to create output file patterns from input file patterns</li>
 			<li>The workflow file runs like a Python script</li>
 			<li>Can import external Python libraries</li>
 			<li>Can create one's own Python functions</li>
@@ -327,33 +333,48 @@
 
 	<section id="how-snakemake-works" class="slide tight">
 		<h2>How Snakemake works in general</h2>
-		<img src="pictures/example-dag.svg" alt="">
+		<figure>
+			<img src="pictures/example-dag.svg" alt="Example job dependency graph">
+			<figcaption class="citation">An example job<br>dependency graph</figcaption>
+		</figure>
 		<ol>
-			<li>Snakemake finds the rule that generates the final outputs. <br>
+			<li>Snakemake starts with the rule that generates the final outputs. <br>
 				<mark>Trace the workflow backwards</mark></li>
-			<li>If all the inputs exist, it's ready to run the commands of this rule<br>
+			<li>If all the inputs of this rule exist, it's ready to run its commands<br>
 				(create a new job)</li>
 			<li>If some inputs do not exist, find other rules to generate the required input files (create a dependent job)</li>
 			<li>Repeat the process until all outputs can be generated from existing files (complete a job dependency graph)</li>
 			<li>Snakemake will start running the corresponding commands/jobs</li>
 		</ol>
 		<style>
-			#how-snakemake-works img {
+			#how-snakemake-works figure {
 				float: right;
 				margin-left: 0.5em;
 			}
 		</style>
 	</section>
 
+	<section class="slide-notes">
+		<p>pull-based (backward) task dependency DAG</p>
+	</section>
+
 	<section id="snakemake-in-action" class="slide">
 		<h2>A RNA-seq pipeline in action</h2>
-		<p>Generate readcounts per gene from stranded RNA-seq aligned BAMs</p>
+		<p>Generate readcounts per gene from RNA-seq aligned BAMs</p>
 		<ol>
 			<li>Find the local path of the sample BAMs</li>
 			<li>Generate read counts (featureCounts)</li>
 			<li>Clean up and compress the outputs</li>
 			<li>Calculate FPKM, FPKM-UQ, and TPM values</li>
 		</ol>
+	</section>
+
+	<section class="slide-notes">
+		<p>Two RNA-seq pipelines are lossly based on GDC's RNA-seq pipeline</p>
+		<ul>
+			<li><a href="https://github.com/ding-lab/cptac_rna_expression">https://github.com/ding-lab/cptac_rna_expression</a> that starts from GDC aligned BAMs</li>
+			<li><a href="https://github.com/ding-lab/HTAN_bulkRNA_expression">https://github.com/ding-lab/HTAN_bulkRNA_expression</a> that starts from FASTQs</li>
+		</ul>
 	</section>
 
 	<section id="example-rule" class="slide tight">
@@ -369,9 +390,29 @@
         'featureCounts -T {threads} -a {params.gtf} ...'
         '-o {output.count_tsv} {input.bam} 2> {log}'</code>
 		</pre>
+		<p class="notes next"><code>{sample}</code> is a wildcard whose value is determined by matching the output patterns</p>
+		<style>
+			#example-rule .notes {
+				position: absolute;
+				right: 5rem;
+				top: 8rem;
+				width: 14rem;
+				font-size: 1rem;
+				margin: 0;
+				padding: 0.5em;
+				border: solid 2px var(--color-key);
+
+			}
+			#example-rule .notes code {
+				background-color: var(--color-yellow);
+			}
+		</style>
 	</section>
 
 	<section id="example-notes" class="slide-notes">
+		<p>
+			<a href="https://en.wikipedia.org/wiki/Make_(software)#Makefile">Makefile</a>-like
+		</p>
 		<h2>Snakemake syntax explained</h2>
 		<dl>
 			<dt><code>{sample}</code></dt>
@@ -407,42 +448,58 @@
 # featureCounts ... inputs/my_sample_b.bam
 # ... (two jobs in parallel)</code>
 		</pre>
-		<p class="next">Alternatively, add a run-all rule to <code>snakemake all</code>:</p>
-		<pre class="language-snakemake next">
+		<div class="next">
+			<p>Alternatively, add a run-all rule to <code>snakemake all</code>:</p>
+			<pre class="language-snakemake">
 <code>with open(config['sample_list']) as f:
 	SAMPLES = f.read().splitlines()
 rule all:
 	input: expand(rules.readcount.output.count_tsv, \
 				  sample=SAMPLES)</code>
-		</pre>
+			</pre>
+		</div>
 	</section>
 
 	<section id="example-rule-extended" class="slide tight">
-		<p>Other powerful features to go beyond wildcard expansion:</p>
+		<p>Other powerful features that extend the wildcard file pattern matching:</p>
 		<pre class="language-snakemake">
 <code>rule readcount:
-    input: unpack(find_bam_path)  # fills in bam and bai
+	output: count_tsv='readcount/{sample}.tsv'
+    input: unpack(find_bam_path)  # provides input.bam and input.bai
     resources:  # dynamic resource allocation
 		mem_mb=lambda wildcards, attempt: \
-			16000 + 16000 * (attempt - 1)
-
+			16000 + 16000 * (attempt - 1)  # retry with more memory
+	...
 def find_bam_path(wildcards):
-	bam_pth = f"{config['bam_dir']}/{wildcards.sample}.bam"
-	return {'bam': bam_pth, 'bai': bam_pth + '.bai'}</code>
+	# Retrieve local paths using the file map from config (a DataFrame)
+	bam_pth = file_map_df.at[wildcards.sample, "rna_genomic_bam_pth"]
+	return {'bam': bam_pth,
+			'bai': bam_pth + '.bai'}</code>
 		</pre>
+		<style>
+			#example-rule-extended pre code {
+				font-size: 18px;
+			}
+		</style>
+	</section>
+
+	<section class="slide-notes">
+		<p>unpack</p>
+		<p>Specify inputs/parameters/resources from a function</p>
+		<p>Pandas dataframe</p>
 	</section>
 
 	<section id="things-i-like" class="slide tight">
 		<h2>Things I like about Snakemake</h2>
 		<ul>
-			<li>Separate the definition and execution of tasks
+			<li><strong>Task definition and execution are separated</strong>
 				<ul>
 					<li>Maximally utilize the available computing resources (CPUs and memory)</li>
 					<li>Smart re-run on only the incomplete tasks (for iterative development)</li>
 					<li>Integration with external job schedulers (e.g., HPC and Kubernetes)</li>
 				</ul>
 			</li>
-			<li class="next">Powerful features that are easy to use
+			<li class="next"><strong>Powerful and easy-to-use features</strong>
 				<ul>
 					<li>Flexible rules by custom Python functions</li>
 					<li>Temporary and piped outputs</li>
@@ -458,14 +515,14 @@ def find_bam_path(wildcards):
 	<section id="things-i-dont-like" class="slide tight">
 		<h2>Things I don't like about Snakemake</h2>
 		<ul>
-			<li>Running large number of jobs (> 100k) can be slow/fragile</li>
-			<li>Flexible features can be a double-edged sword; not the most robust
+			<li>Running large number of tasks (> 100k) can be slow/fragile</li>
+			<li class="next">Flexible features can be a double-edged sword; not the most robust
 				<ul>
 					<li>Unique combinations of features can trigger weird bugs or crash the runtime</li>
 					<li>Though bugs are usually fixed eventually, it may take up too much of the development time for a researcher</li>
 				</ul>
 			</li>
-			<li>Large setup & runtime overhead to run on cloud
+			<li class="next">Large setup & runtime overhead to run on a cloud
 				<ul>
 					<li>All files need to be tracked (e.g., inputs, outputs, and references)</li>
 					<li>Overhead in downloading/uploading files and setting up the environment</li>
@@ -482,19 +539,130 @@ def find_bam_path(wildcards):
 			alt="Illustration of the scenario of a reproducible analysis workflow. DALL·E generated art.">
 		<h2>My best practices for data processing</h2>
 		<ul>
-			<li>Run samples in batches; use config file</li>
+			<li>Process samples in batches; use config file</li>
 			<li>Use file checksums to track upstream sources and outputs</li>
 			<li>A big fat Docker/conda environment to contain all dependencies*</li>
-			<li>Do I really need a "pipeline"? (run for 10+ times) <br>
-				Good-old bash scripts plus <a href="https://www.gnu.org/software/parallel/sphinx.html">GNU Parallel</a> may be sufficient or more worth the time
+			<li class="next">Do I really need a "pipeline"? Do I run for 10+ times? <br>
+				Good old bash scripts plus <a href="https://www.gnu.org/software/parallel/sphinx.html">GNU Parallel</a> may be sufficient or more worth the time
 			</li>
-			<li>Running on cloud will be difficult than local/HPC unless there is a team maintaining the cloud infrastructure</li>
+			<li class="next">Running on cloud will be difficult than local/HPC unless there is a team maintaining the cloud infrastructure</li>
 		</ul>
 		<style>
 			#best-practices-for-data-processing .illustration {
 				width: 10rem;
 			}
 		</style>
+	</section>
+
+	<section id="batch-and-config" class="slide tight">
+		<h2>Sample batches, config, and file map</h2>
+		<div class="two columns">
+			<div>
+				<pre class="language-bash small">
+<code>pipeline_src/
+├── scripts/...
+└── Snakefile
+
+batch_yyyy-mm-dd/  # from a template
+├── config.json
+├── sample.list
+└── output/...
+    └── manifest.csv</code>
+				</pre>
+				<pre class="language-bash small next">
+<code># Under the batch folder
+snakemake --configfile=config.json \
+  -s /pipeline_src/Snakefile \
+  -j 50 --attempt 3 \
+  --resources io_heavy=4 -- \
+  all</code>
+				</pre>
+			</div>
+			<div>
+				<pre class="language-json small next">
+<code>// config.json
+{
+  "sample_list": "samples.list",
+  "file_map": "/path/to/file_map.csv",
+  "gtf": "/path/to/my_annotation.gtf",
+  ...
+}</code>
+				</pre>
+				<pre class="language-bash small next">
+<code># file_map.csv
+sample,file_type,local_path,uuid,md5_checksum,...
+sample_A,rna_bam,/path/to/sample_A.bam,5415b...
+sample_B,rna_bam,/path/to/sample_B.bam,289c7...
+
+# output/manifest.csv
+sample,file_type,local_path,md5_checksum,...
+sample_A,tsv,/path/to/readcount/sample_A.tsv,...
+sample_B,tsv,/path/to/readcount/sample_B.tsv,...</code>
+				</pre>
+			</div>
+		</div>
+		<style>
+			#batch-and-config .two.columns {
+				grid-template-columns: 45% 55%;
+				column-gap: 24px;
+			}
+			#batch-and-config pre,
+			#batch-and-config code {
+				overflow-x: visible;
+			}
+			#batch-and-config code {
+				width: auto;
+			}
+			#batch-and-config .small code {
+				font-size: 1rem;
+				line-height: 1.5;
+			}
+			#batch-and-config li {
+				font-size: 20px;
+				line-height: 2;
+			}
+		</style>
+	</section>
+
+	<section class="slide-notes">
+		<ul>
+			<li>Separate the location of the pipeline and outputs</li>
+			<li>File map contains the local paths, checksums, and other metadata of the inputs</li>
+			<li>Config file specifies the variable parts of the pipline (input/reference paths, parameters)</li>
+			<li>Collect all outputs in a manifest</li>
+		</ul>
+		<p>Three columns (folder structure, config, snakemake command)</p>
+		<p>Show folder structure</p>
+		<p>Show CPTAC3 Catalog</p>
+	</section>
+
+	<section id="checksum" class="slide">
+		<h2>Checksum for both inputs and outputs</h2>
+		<p>Not sure if the file is the same? Use your <a href="https://en.wikipedia.org/wiki/Checksum">checksum</a>!</p>
+		<ul>
+			<li>Detect if inputs have changed or corrupted</li>
+			<li>Ensure output file integrity</li>
+			<li>I generally use MD5 because of its speed, unless there is a security concern</li>
+			<li>This can be implemented outside of the pipeline too</li>
+		</ul>
+	</section>
+
+	<section class="slide-notes">
+		<p>There are quite a few possible reasons lead to a input change or corruption:</p>
+		<ul>
+			<li>With increasing data size, it's more likely to get rotten bits from failing storage</li>
+			<li>Silent file transfer errors</li>
+			<li>Updates from the upstream</li>
+		</ul>
+		<p>In general, it's a good idea to keep checksums all the time.
+			Here is a snippet to generate MD5 checksums of everything under a folder in parallel and verify the content using the generated checksums:</p>
+		<pre class="language-bash">
+<code>fd --type file --exclude 'README*' --exclude '*CHECKSUMS' \
+	| sort \
+	| parallel --keep-order -j4 --bar 'md5sum {}' \
+	> MD5_CHECKSUMS
+md5sum -c MD5_CHECKSUMS</code>
+		</pre>
 	</section>
 
 	<section id="best-practices-for-reproducible-analysis" class="slide tight">
@@ -504,17 +672,17 @@ def find_bam_path(wildcards):
 			alt="Illustration of the scenario of a reproducible analysis workflow. DALL·E generated art.">
 		<h2>My best practices for reproducible analysis</h2>
 		<ul>
+			<li>Work on the workflow later when the project is in shape (refactoring takes time)</li>
 			<li>Start with making the independent reproducible scripts<br>
 				(e.g., R Markdown/Jupyter notebooks)</li>
-			<li>Construct the workflow in stages:
+			<li class="next">Construct the workflow in stages:
 				<ol>
-					<li>Make a data freeze with change log and checksums</li>
+					<li>Make a data freeze. Better if it contains a changelog and checksums</li>
 					<li>Run the analyses and number them (e.g. <code>09_xxx.Rmd</code>)</li>
 					<li>Generate figures/tables/number for publication</li>
 				</ol>
 			</li>
-			<li>Regularly test the workflow</li>
-			<li>Work on the workflow later when the project is in shape (refactoring takes time)</li>
+			<li class="next">Regularly test the workflow</li>
 		</ul>
 		<style>
 			#best-practices-for-reproducible-analysis h2 {
@@ -532,8 +700,8 @@ def find_bam_path(wildcards):
 		<ul>
 			<li>Based on an explicit and forward task dependency (push-based <abbr title="Directed Acyclic Graph">DAG</abbr>)</li>
 			<li>Generate <strong>unique IDs per workflow run</strong>; useful for large scale processing, monitoring, and integration with <abbr title="Laboratory Information Management System">LIMS</abbr></li>
+			<li><strong>Rigorous</strong>, but less flexible and more tedious to write</li>
 			<li><strong>Cloud friendly</strong>; support diverse backends</li>
-			<li>Robust, but less flexible and more tedious to write</li>
 			<li><strong>Ideal for a core lab</strong> and a workflow that will run for 100+ times</li>
 			<li>Not very useful for reproducing analyses/figures</li>
 		</ul>
@@ -549,8 +717,8 @@ def find_bam_path(wildcards):
 		<div class="columns two">
 			<ul>
 				<li>Very few use <a href="https://airflow.apache.org/">Airflow</a> in the field</li>
-				<li>Strength: great workflow monitoring ability; widely used by the big techs</li>
-				<li>Weakness: hard to set up locally and iterate the dev; supporting infra (and DevOps) required; not HPC friendly; lack network effect</li>
+				<li class="next">Strengths: great workflow monitoring ability; widely used by the big techs</li>
+				<li class="next">Weaknesses: hard to set up locally and iterate the dev; requires its own infra (and DevOps); not HPC friendly; lack network effect</li>
 			</ul>
 			<figure>
 				<img class="fill w"
@@ -574,11 +742,11 @@ def find_bam_path(wildcards):
 	<section id="when-to-use-snakemake" class="slide tight">
 		<h2>When to use Snakemake or others?</h2>
 		<ul>
-			<li>If you already know Python, are new to workflow, or don't develop pipelines for a living, pick Snakemake.</li>
+			<li>If you already know Python, are new to workflows, or don't develop pipelines for a living, pick Snakemake.</li>
 			<li>To make your research results reproducible, also pick Snakemake</li>
-			<li>For pipelines that solely run on cloud, run at a large scale constantly, or require monitoring, pick other solutions:
+			<li class="next">For pipelines that solely run on a cloud, run at a large scale constantly, or require monitoring, pick other solutions:
 				<ul>
-					<li>CWL/WDL is the most popular approach in my community, which is used by <a href="https://github.com/NCI-GDC/gdc-workflow-overview">NCI GDC</a>, <a href="https://terra.bio/">Terra</a>, and my lab/institution. Highly modular and portable</li>
+					<li>CWL is the most popular approach in my community, which is used by <a href="https://github.com/NCI-GDC/gdc-workflow-overview">NCI GDC</a>, <a href="https://terra.bio/">Terra</a>, and my lab/institution. Highly modular and portable</li>
 					<li>Nextflow has a strong community promoting and contributing to it. It also maintains a collection of <a href="https://nf-co.re/">off-the-shelf workflows</a></li>
 				</ul>
 			</li>
@@ -600,6 +768,43 @@ def find_bam_path(wildcards):
 				<figcaption class="citation right">Snakemake can be your great buddy of data processing and reproducible analysis</figcaption>
 			</figure>
 		</div>
+	</section>
+
+	<section id="end" class="slide clear black">
+		<h2>Thank You</h2>
+		<figure>
+			<img src="pictures/donggeun-lee-BpWvu_KLJxo-unsplash.jpg" class="cover w" alt="">
+			<figcaption class="copyright bottom white">
+				Photo by <a href="https://unsplash.com/@dizy64">DongGeun Lee</a>
+				on <a href="https://unsplash.com/photos/BpWvu_KLJxo">Unsplash</a>
+			</figcaption>
+		</figure>
+		<style>
+			#end h2 {
+				position: absolute;
+				bottom: 6rem;
+				left: 0;
+				right: 0;
+				margin: 0;
+				padding: 1.25em calc(var(--slide-left-side) / 2);
+
+				font-size: 3rem;
+				font-weight: 600;
+				line-height: 1.25;
+				text-align: center;
+
+				color: var(--color-white);
+				background-image: linear-gradient(
+					to right,
+					#9b582f8f 0%,
+					#4f453c8e 100%
+				);
+			}
+
+			#end .copyright {
+				left: calc(var(--slide-left-side) / 2);
+			}
+		</style>
 	</section>
 
 	<div class="progress"></div>
