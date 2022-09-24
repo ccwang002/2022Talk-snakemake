@@ -12,10 +12,6 @@
     text-decoration: none;
 }
 
-:is(.slide, .slide-notes) abbr {
-    font-variant-caps: all-small-caps;
-}
-
 :is(.slide, .slide-notes) abbr[title] {
     text-decoration-style: dotted;
     text-underline-offset: 0.25em;
