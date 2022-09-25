@@ -321,7 +321,7 @@
 		</p>
 	</section>
 
-	<section id="what-is-snakemake" class="slide">
+	<section id="what-is-snakemake" class="slide tight">
 		<img src="pictures/snakemake_logo.svg" alt="Logo of Snakemake">
 		<h2>What is Snakemake?</h2>
 		<p><a href="https://snakemake.github.io/">Snakemake</a> is a Python-based workflow management tool.<br>
@@ -333,6 +333,9 @@
 			<li>Can create one's own Python functions</li>
 		</ul>
 		<style>
+			#what-is-snakemake {
+				padding-top: 82px;
+			}
 			#what-is-snakemake img {
 				float: right;
 				width: 4em;
@@ -346,9 +349,8 @@
 			<img src="pictures/example-dag.svg" alt="Example job dependency graph">
 			<figcaption class="citation">An example task<br>dependency graph</figcaption>
 		</figure>
-		<ol>
-			<li>Snakemake starts with the rule that generates the final outputs. <br>
-				<mark>Trace the workflow backwards</mark></li>
+		<p><mark>Trace the workflow <strong>backwards</strong></mark>. Snakemake starts with the rule that generates the final outputs:</p>
+		<ol class="next">
 			<li>If all the inputs of this rule exist, it's ready to run its commands<br>
 				(create a new task)</li>
 			<li>If some inputs do not exist, find other rules to generate the required input files (create a dependent task)</li>
@@ -374,16 +376,29 @@
 		</p>
 	</section>
 
-	<section id="snakemake-in-action" class="slide">
+	<section id="snakemake-in-action" class="slide tight">
+		<figure class="place bottom right">
+			<img class="fill w"
+				src="pictures/rna_pipeline_repo_screenshot.png"
+				alt="Screenshot of the README of the example pipeline">
+			<figcaption class="citation">Screenshot of the pipeline README</figcaption>
+		</figure>
 		<h2>A simple RNA-seq pipeline in action</h2>
-		<p>Generate readcounts per gene from RNA-seq aligned BAMs</p>
+		<p>Calculate gene read counts from RNA-seq BAMs</p>
 		<ol>
 			<li>Find the local path of the sample BAMs</li>
 			<li>Generate read counts (featureCounts)</li>
 			<li>Clean up and compress the outputs</li>
 			<li>Calculate FPKM and FPKM-UQ values</li>
 		</ol>
-		<p>The full pipeline is available <a href="https://github.com/ding-lab/cptac_rna_expression">here</a></p>
+		<p>Full pipeline <a href="https://github.com/ding-lab/cptac_rna_expression">here</a></p>
+		<style>
+			#snakemake-in-action figure {
+				width: 25rem;
+				right: 1rem;
+				bottom: 1rem;
+			}
+		</style>
 	</section>
 
 	<section class="slide-notes">
@@ -408,10 +423,10 @@
 	<section id="example-rule" class="slide tight">
 		<pre class="language-snakemake">
 <code>rule readcount:
-    output: count_tsv='stranded_readcount/{sample}.tsv'
+    output: count_tsv='readcount/{sample}.tsv'
     input: bam='inputs/{sample}.bam',
 		   bai='inputs/{sample}.bam.bai'
-    log: 'logs/stranded_readcount/{sample}.log'
+    log: 'logs/readcount/{sample}.log'
     params: gtf=GENE_GTF_PTH
     threads: 16
     shell:
@@ -460,14 +475,14 @@
 			Then expand the rest of the rule (inputs, parameters, and etc.)
 		</p>
 		<p>
-			For example, to generate <code>stranded_readcount/<mark>my_sample_a</mark>.tsv</code> using this task, <code>{sample}</code> expands to <code>my_sample_a</code> in the rest parts of the rule.
+			For example, to generate <code>readcount/<mark>my_sample_a</mark>.tsv</code> using this task, <code>{sample}</code> expands to <code>my_sample_a</code> in the rest parts of the rule.
 			So Snakemake will look for the corresponding inputs and run the following shell commands:
 		</p>
 		<pre class="language-shell">
 <code>featureCounts -T 16 -a /path/to/genes.gtf \
-	-o stranded_readcount/my_sample_a.tsv \
+	-o readcount/my_sample_a.tsv \
 	inputs/my_sample_a.bam \
-	2> logs/stranded_readcount/my_sample_a.log</code>
+	2> logs/readcount/my_sample_a.log</code>
 		</pre>
 
 		<h3>Process multiple samples using <code>snakemake all</code></h3>
@@ -502,7 +517,7 @@
 
 	<section id="example-execution" class="slide tight">
 		<pre class="language-bash">
-<code>$ snakemake -j 32 stranded_readcount/my_sample_{a,b,c,d}.tsv
+<code>$ snakemake -j 32 readcount/my_sample_{a,b,c,d}.tsv
 # featureCounts ... inputs/my_sample_a.bam
 # featureCounts ... inputs/my_sample_b.bam
 # ... (two jobs in parallel)</code>
@@ -641,8 +656,8 @@ def find_bam_path(wildcards):
 batch_yyyy-mm-dd/  # from a template
 ├── config.json
 ├── sample.list
-└── output/...
-    └── manifest.csv</code>
+├── output/...
+└── output_manifest.csv</code>
 				</pre>
 				<pre class="language-bash small next">
 <code># Under the batch folder
@@ -669,7 +684,7 @@ sample,file_type,local_path,uuid,md5_checksum,...
 sample_A,rna_bam,/path/to/sample_A.bam,5415b...
 sample_B,rna_bam,/path/to/sample_B.bam,289c7...
 
-# output/manifest.csv
+# output_manifest.csv
 sample,file_type,local_path,md5_checksum,...
 sample_A,tsv,/path/to/readcount/sample_A.tsv,...
 sample_B,tsv,/path/to/readcount/sample_B.tsv,...</code>
